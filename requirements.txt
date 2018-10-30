@@ -1,0 +1,5 @@
+Django==2.1.2
+gunicorn==19.9.0
+pytz==2018.7
+sqlparse==0.2.4
+whitenoise==4.1
