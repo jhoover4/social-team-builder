@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="circle--actions--bar">
+        <div class="bounds">
+            <div class="grid-100">
+                {% block project_urls %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <div class="bounds circle--page circle--article">
+        <div class="grid-70">
+            {% block project_body %}
+            {% endblock %}
+        </div>
+
+        <div class="grid-25 grid-push-5">
+            {% block project_sidebar %}
+            {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}
