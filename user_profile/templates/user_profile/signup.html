@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="bounds">
+        <div class="grid-30 centered">
+            <h2>Sign Up</h2>
+            {{ form.non_field_errors }}
+            <form method="post" action="{% url 'profiles:sign_up' %}">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        <input type="{{ field.field.widget.input_type }}" required name="{{ field.name }}" id="{{ field.id_for_label }}" placeholder="{{ field.label }}"/>
+                    </div>
+                {% endfor %}
+                <button class="button-primary">Sign Up</button>
+                <a class="button" href="{% url 'profiles:login' %}">Sign In</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

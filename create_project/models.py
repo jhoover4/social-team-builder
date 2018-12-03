@@ -1,12 +1,16 @@
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+
+from team_builder import settings
 
 
 class Project(models.Model):
     """Represents one project that a user owns."""
 
-    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
     name = models.CharField(max_length=255)
     timeline = models.DateTimeField()
     applicant_requirements = models.TextField(blank=True)
@@ -42,7 +46,10 @@ class ProjectApplicant(models.Model):
         (PENDING, 'Pending'),
     )
 
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True)
     time_on_project = models.DateTimeField()
