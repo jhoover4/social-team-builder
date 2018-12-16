@@ -1,3 +1,21 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Project, ProjectApplicant, ProjectPosition
+
+
+class ProjectPositionInline(admin.TabularInline):
+    model = ProjectPosition
+
+
+class ProjectApplicantInline(admin.TabularInline):
+    model = ProjectApplicant
+
+
+class ProjectAdmin(admin.ModelAdmin):
+    inlines = [
+        ProjectApplicantInline,
+        ProjectPositionInline,
+    ]
+
+
+admin.site.register(Project, ProjectAdmin)

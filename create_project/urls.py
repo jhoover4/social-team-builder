@@ -16,10 +16,11 @@ Including another URLconf
 from django.urls import path
 
 from django.views.generic import TemplateView
+from .views import ProjectDetailView
 
 urlpatterns = [
     path('new', TemplateView.as_view(template_name='project_new.html'), name='new'),
-    path('<int:project_id>', TemplateView.as_view(template_name='project.html'), name='root'),
+    path('<int:pk>', ProjectDetailView.as_view(), name='root'),
     path('<int:project_id>/edit', TemplateView.as_view(template_name='project_edit.html'), name='edit'),
     path('<int:project_id>/delete', TemplateView.as_view(template_name='project_edit.html'), name='delete'),
     path('<int:project_id>/applications', TemplateView.as_view(template_name='applications.html'), name='applications'),

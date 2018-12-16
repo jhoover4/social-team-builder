@@ -12,7 +12,8 @@ class Project(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
-    timeline = models.DateTimeField()
+    description = models.TextField(blank=True)
+    time_involvement = models.IntegerField(default=60)
     applicant_requirements = models.TextField(blank=True)
     created = models.DateTimeField(default=timezone.now)
 
@@ -26,9 +27,9 @@ class ProjectPosition(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    related_skills = models.ManyToManyField('user_profile.Skills')
+    related_skills = models.ManyToManyField('user_profile.Skill')
     filled = models.BooleanField(default=False)
-    time_involvement = models.DateTimeField(default=False)  # eg: 10/hours a week
+    time_involvement = models.IntegerField(default=60)  # eg: 10/hours a week. Done in minutes per week
 
     def __str__(self):
         return self.name
@@ -52,4 +53,4 @@ class ProjectApplicant(models.Model):
     )
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True)
-    time_on_project = models.DateTimeField()
+    time_on_project = models.IntegerField(default=0)
