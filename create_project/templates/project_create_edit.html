@@ -1,0 +1,69 @@
+{% extends 'layouts/project_layout.html' %}
+
+{% block project_urls %}
+    <input type="submit" form="project_form" class="button button-primary" value="Save Project">
+    <a class="button button-text" href="{% url 'project:new' %}">Discard</a>
+{% endblock %}
+
+{% block project_body %}
+    <form id="project_form" method="post">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {{ form.errors }}
+        <div class="circle--article--body">
+            {{ form.name.errors }}
+            <input name="{{ form.name.html_name }}" type="{{ form.name.field.widget.input_type }}"
+                   id="{{ form.name.id_for_label }}"
+                   class="circle--input--h1"
+                   placeholder="Project Title"/>
+            {{ form.description.errors }}
+            <textarea form="project_form" name="{{ form.description.name }}"
+                      id="{{ form.description.id_for_label }}"
+                      placeholder="Project description..."></textarea>
+        </div>
+
+        <div class="circle--project--positions">
+            <h2>Positions</h2>
+            <ul class="circle--group--list circle--clone--list">
+                {{ project_positions_formset.management_form }}
+                {% for position_form in project_positions_formset %}
+                    <li>
+                        {{ position_form.errors }}
+                        <input name="{{ position_form.name.html_name }}"
+                               type="text"
+                               id="{{ position_form.name.id_for_label }}"
+                               class="circle--input--h3" placeholder="Position Title"/>
+                        {{ position_form.description }}
+                        {{ position_form.time_involvement.label }} {{ position_form.time_involvement.help_text }}
+                        {{ position_form.time_involvement }}
+                        {{ position_form.filled.label_tag }}{{ position_form.filled }}
+                        {{ position_form.related_skills }}
+                        <a class="circle--clone--add">Add Position</a>
+                        <a class="circle--clone--remove">Remove</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <input type="submit" class="button button-primary" value="Save Project">
+        </div>
+    </form>
+{% endblock %}
+
+{% block project_sidebar %}
+    <div class="circle--secondary--module">
+        <h3>Project Timeline</h3>
+        {{ form.time_involvement.errors }}
+        <textarea form="project_form" name="{{ form.time_involvement.name }}"
+                  id="{{ form.time_involvement.id_for_label }}"
+                  class="circle--textarea--input"
+                  placeholder="Time estimate"></textarea>
+    </div>
+
+    <div class="circle--secondary--module">
+        <h3>Applicant Requirements</h3>
+        {{ form.applicant_requirements.errors }}
+        <textarea form="project_form" name="{{ form.applicant_requirements.name }}"
+                  id="{{ form.applicant_requirements.id_for_label }}"></textarea>
+    </div>
+{% endblock %}

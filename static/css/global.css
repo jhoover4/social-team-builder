@@ -146,6 +146,15 @@ select {
   text-transform: none;
 }
 
+select[multiple] {
+    height: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
 /* line 223, ../sass/circle/core/reset.sass */
 button, html input[type="button"] {
   -webkit-appearance: button;
