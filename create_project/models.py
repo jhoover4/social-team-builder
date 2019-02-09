@@ -51,6 +51,6 @@ class ProjectApplicant(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    position = models.ForeignKey('ProjectPosition', on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True)
     time_on_project = models.IntegerField(default=0)
