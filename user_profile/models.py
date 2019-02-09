@@ -72,7 +72,7 @@ class Profile(models.Model):
     )
 
     position = models.CharField(max_length=255)
-    skills = models.ManyToManyField('Skills')
+    skills = models.ManyToManyField('Skill')
     avatar = models.ImageField(upload_to='avatars', default='blank-avatar.png')
     about_me = models.TextField()
 
@@ -80,10 +80,13 @@ class Profile(models.Model):
         return self.user.email
 
 
-class Skills(models.Model):
+class Skill(models.Model):
     """Used to suggest skills for users and create new ones."""
 
     name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

@@ -4,8 +4,8 @@
     <div class="circle--actions--bar">
         <nav class="bounds">
             <ul class="circle--pill--list">
-                <li><a href="{% url 'project:applications' 1 %}">Applications</a></li>
-                <li><a class="selected" href="{% url 'profiles:root' 1 %}">Profile</a></li>
+                <li><a href="{% url 'profiles:user_dashboard' profile_id=user.pk %}">Applications</a></li>
+                <li><a class="selected" href="{% url 'profiles:root' profile_id=user.pk %}">Profile</a></li>
             </ul>
         </nav>
     </div>
@@ -21,19 +21,9 @@
         </div>
 
         <div class="grid-70">
-            <h1>Wendy McElroy</h1>
+            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
             <div class="circle--article--body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.</p>
+                {{ user.profile.about_me }}
             </div>
 
             <h2>Past Projects</h2>
@@ -76,21 +66,18 @@
             <div class="circle--secondary--module">
                 <h4>My Skills</h4>
                 <ul class="unloaded">
-                    <li>Skill 1</li>
-                    <li>Skill 2</li>
-                    <li>Skill 3</li>
-                    <li>Skill 4</li>
-                    <li>Skill 5</li>
+                    {% for skill in user.profile.skills.all %}
+                        <li>{{ skill.name }}</li>
+                    {% endfor %}
                 </ul>
             </div>
 
             <div class="circle--secondary--module">
                 <h4>My Projects</h4>
                 <ul class="circle--link--list">
-                    <li><a>Project 1</a></li>
-                    <li><a>Project 2</a></li>
-                    <li><a>Project 3</a></li>
-                    <li><a>Project 4</a></li>
+                    {% for project in user.project_set.all %}
+                        <li><a href="{% url 'project:root' pk=project.pk %}">{{ project.name }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>

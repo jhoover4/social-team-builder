@@ -23,7 +23,8 @@ from . import views
 urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('profile-redirect', views.profile_redirect, name='profile_redirect'),
-    path('<int:profile_id>', TemplateView.as_view(template_name='user_profile/profile.html'), name='root'),
+    path('<int:profile_id>', views.view_profile, name='root'),
+    path('<int:profile_id>/dashboard', views.view_dashboard, name='user_dashboard'),
     path('edit/<int:profile_id>', TemplateView.as_view(template_name='user_profile/profile_edit.html'), name='edit'),
     path('sign-up/', views.sign_up, name='sign_up'),
 ]

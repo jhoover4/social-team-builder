@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import CustomUser, Profile
-
+from .models import CustomUser, Profile, Skill
 
 class ProfileInline(admin.StackedInline):
     model = Profile
@@ -38,3 +37,4 @@ class UserAdmin(UserAdmin):
 # Re-register UserAdmin
 admin.site.unregister(CustomUser)
 admin.site.register(CustomUser, UserAdmin)
+admin.site.register(Skill)

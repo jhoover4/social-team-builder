@@ -5,8 +5,8 @@
     <div class="circle--actions--bar">
         <nav class="bounds">
             <ul class="circle--pill--list">
-                <li><a href="{% url 'applications' %}">Applications</a></li>
-                <li><a class="selected" href="{% url 'profiles:index' %}">Profile</a></li>
+                <li><a href="/">Applications</a></li>
+                <li><a class="selected" href="{% url 'profiles:root' profile_id=user.id %}">Profile</a></li>
             </ul>
         </nav>
     </div>
@@ -22,11 +22,14 @@
         </div>
 
         <div class="grid-70">
-            <input type="text" value="Wendy McElroy" placeholder="Full Name" class="circle--input--h1">
+            <input type="text" value="{{ user.firstname }}{{ user.lastname }}" placeholder="Full Name"
+                   class="circle--input--h1">
+            <input type="text" value="{{ bio_form.position }}" name="{{ bio_form.position.name }}"
+                   placeholder="Position"
+                   class="circle--input--h2">
             <div class="circle--article--body">
-        <textarea placeholder="Tell us about yourself...">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+                <textarea name="{{ bio_form.about_me.name }}"
+                          placeholder="Tell us about yourself...">{{ bio_form.about_me.value }}</textarea>
             </div>
 
             <h2>Past Projects</h2>
