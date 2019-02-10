@@ -23,7 +23,7 @@ from . import settings
 from . import views
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('', views.index, name='index'),
     path('search', TemplateView.as_view(template_name='search.html'), name='search'),
     path('profiles/', include(('user_profile.urls', 'user_profile'), namespace='profiles')),
     path('project/', include(('create_project.urls', 'create_project'), namespace='project')),

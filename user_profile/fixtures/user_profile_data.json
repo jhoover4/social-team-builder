@@ -67,7 +67,7 @@
     "model": "user_profile.profile",
     "pk": 2,
     "fields": {
-      "user": 3,
+      "user": 2,
       "position": "iOS Developer",
       "avatar": "blank-avatar.png",
       "about_me": "Nulla lacinia magna nec imperdiet volutpat. Donec ultrices orci ut urna tristique, vel mattis nibh ornare. Donec elit ipsum, venenatis a quam eu, luctus gravida tellus. Nunc et sem vel arcu luctus imperdiet ut ut mi. Cras sit amet maximus dui, mattis commodo metus. Praesent augue mauris, efficitur non ornare vitae, tincidunt at ligula. Curabitur neque est, gravida vitae libero id, auctor venenatis libero. Aenean nec lorem arcu.",
@@ -79,9 +79,9 @@
   },
   {
     "model": "user_profile.profile",
-    "pk": 4,
+    "pk": 3,
     "fields": {
-      "user": 4,
+      "user": 3,
       "position": "Designer",
       "avatar": "blank-avatar.png",
       "about_me": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rhoncus tortor metus, sit amet efficitur nisi imperdiet at. Nam est nisi, blandit sit amet elit at, laoreet scelerisque magna. Suspendisse tincidunt tellus augue, a malesuada leo pharetra quis. Etiam hendrerit commodo ornare. Aliquam auctor sagittis mi, eu fringilla tellus volutpat quis. Nullam hendrerit nisl maximus sem luctus, nec eleifend ex molestie. Aenean feugiat eu urna non iaculis.",
