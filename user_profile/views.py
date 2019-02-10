@@ -26,8 +26,7 @@ def sign_up(request):
                 request,
                 "You're now a user! You've been signed in, too."
             )
-            username = request.user.email
-            return HttpResponseRedirect(reverse('profiles:root', kwargs={'profile_id': username}))
+            return HttpResponseRedirect(reverse('profiles:root', kwargs={'profile_id': user.pk}))
     return render(request, 'user_profile/signup.html', {'form': form})
 
 

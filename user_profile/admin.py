@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .models import CustomUser, Profile, Skill
 
+
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
