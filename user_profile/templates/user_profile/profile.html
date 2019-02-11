@@ -5,7 +5,8 @@
         <nav class="bounds">
             <ul class="circle--pill--list">
                 <li><a href="{% url 'profiles:user_dashboard' profile_id=user.pk %}">Applications</a></li>
-                <li><a class="selected" href="{% url 'profiles:root' profile_id=user.pk %}">Profile</a></li>
+                <li><a {% if current_profile.pk == user.pk %}class="selected" {% endif %}
+                       href="{% url 'profiles:root' profile_id=user.pk %}">Profile</a></li>
             </ul>
         </nav>
     </div>
@@ -15,15 +16,22 @@
             <div class="circle--fluid--cell circle--fluid--primary">
                 <h2>Profile</h2>
             </div>
-            <div class="circle--fluid--cell circle--fluid--secondary">
-                <a class="button icon-on-left" href="profile_edit.html">Edit</a>
-            </div>
+            {% if current_profile.pk == user.pk %}
+                <div class="circle--fluid--cell circle--fluid--secondary">
+                    <a class="button icon-on-left" href="profile_edit.html">Edit</a>
+                </div>
+            {% elif current_profile_applications %}
+                <div class="circle--fluid--cell circle--fluid--secondary">
+                    <a class="button icon-on-left" href="{% url 'create_project:edit' pk=1 %}">Add to
+                        Project</a>
+                </div>
+            {% endif %}
         </div>
 
         <div class="grid-70">
-            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+            <h1>{{ current_profile.first_name }} {{ current_profile.last_name }}</h1>
             <div class="circle--article--body">
-                {{ user.profile.about_me }}
+                {{ current_profile.profile.about_me }}
             </div>
 
             <h2>Past Projects</h2>
@@ -35,24 +43,41 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="clickable-row" data-href="project.html">
-                    <td>
-                        <h3>Invoice Delivery Tool</h3>
-                    </td>
-                    <td class="circle--cell--right">
-                        <span class="secondary-label">Rails Developer</span>
-                    </td>
-                </tr>
-                <tr class="clickable-row" data-href="project.html">
-                    <td>
-                        <h3>Twitter Client</h3>
-                    </td>
-                    <td class="circle--cell--right">
-                        <span class="secondary-label">Designer</span>
-                    </td>
-                </tr>
+                {% for past_position in past_positions %}
+                    <tr class="clickable-row" data-href="{% url 'create_project:root' pk=past_position.project.pk %}">
+                        <td>
+                            <h3>{{ past_position.project.name }}</h3>
+                        </td>
+                        <td class="circle--cell--right">
+                            <span class="secondary-label">{{ past_position.name }}</span>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
+            {% if profile_applications %}
+                <h2>Applied Projects</h2>
+                <table class="u-full-width circle--table">
+                    <thead>
+                    <tr>
+                        <th>Project Title</th>
+                        <th class="circle--cell--right">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for application in profile_applications %}
+                        <tr>
+                            <td>
+                                <h3>{{ application.position.project.name }}</h3>
+                            </td>
+                            <td class="circle--cell--right">
+                                <span class="secondary-label">{{ application.get_status_display }}</span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
 
         <div class="grid-25 grid-push-5">
@@ -66,7 +91,7 @@
             <div class="circle--secondary--module">
                 <h4>My Skills</h4>
                 <ul class="unloaded">
-                    {% for skill in user.profile.skills.all %}
+                    {% for skill in current_profile.profile.skills.all %}
                         <li>{{ skill.name }}</li>
                     {% endfor %}
                 </ul>
@@ -75,7 +100,7 @@
             <div class="circle--secondary--module">
                 <h4>My Projects</h4>
                 <ul class="circle--link--list">
-                    {% for project in user.project_set.all %}
+                    {% for project in current_profile.project_set.all %}
                         <li><a href="{% url 'project:root' pk=project.pk %}">{{ project.name }}</a></li>
                     {% endfor %}
                 </ul>

@@ -52,17 +52,37 @@ def edit_profile(request):
 
 
 def view_profile(request, profile_id):
-    """View a single user profile."""
+    """
+    View a single user profile. If the viewer is not the profile's owner,
+    then give them application approval functionality.
+    If the viewer is the profile owner, they can edit their profile.
+    """
 
-    user = CustomUser.objects.get(id=profile_id)
+    user = request.user
+
+    current_profile = CustomUser.objects.get(id=profile_id)
+    profile_applications = None
+
+    try:
+        past_positions = [application.position for application in
+                          ProjectApplicant.objects.select_related('position').filter(user=current_profile)]
+        profile_applications = ProjectApplicant.objects.filter(
+            Q(user__id=current_profile.id) &
+            Q(position__project__owner=user)
+        )
+    except ProjectApplicant.DoesNotExist:
+        past_positions = None
 
     return render(request, 'user_profile/profile.html', {
-        'user': user,
+        'current_profile': current_profile,
+        'past_positions': past_positions,
+        'profile_applications': profile_applications,
     })
 
 
 def view_dashboard(request, profile_id):
-    """User dashboard includes user created projects and submitted applications.
+    """
+    User dashboard includes user created projects and submitted applications.
     Can filter based on application status, project name, and project needs.
     """
 
@@ -85,8 +105,8 @@ def view_dashboard(request, profile_id):
     else:
         applications = ProjectApplicant.objects.all()
 
-    projects = Project.objects.all().values('pk','name')
-    positions = ProjectPosition.objects.filter(pk__in=[project['pk'] for project in projects]).values('name')
+    projects = Project.objects.all().values('pk', 'name')
+    positions = ProjectPosition.objects.filter(project__pk__in=[project['pk'] for project in projects]).values('name')
 
     return render(request, 'user_profile/application_dashboard.html', {
         'user': user,
