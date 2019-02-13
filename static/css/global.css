@@ -2114,3 +2114,8 @@ input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, i
 .logo:hover {
   box-shadow: 0 0 0 15px #fff inset;
 }
+
+.circle--form--delete {
+  display: inline-block;
+  margin: 0;
+}

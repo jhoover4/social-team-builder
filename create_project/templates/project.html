@@ -6,7 +6,9 @@
         <div class="bounds">
             <div class="grid-100">
                 <a class="button" href="{% url 'project:edit' pk=project.pk %}">Edit Project</a>
-                <a class="button button-text" href="{% url 'project:delete' pk=project.pk %}">Delete Project</a>
+                <form class="circle--form--delete" method="post" action="{% url 'project:delete' pk=project.pk %}">
+                    {% csrf_token %}<input class="button button-text" type="submit" value="Delete Project">
+                </form>
             </div>
         </div>
     </div>

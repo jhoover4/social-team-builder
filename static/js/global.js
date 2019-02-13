@@ -5,7 +5,20 @@ $(document).ready(function () {
 
     const updateDjangoCounter = (num) => {
         const $totalFormsInput = $("#id_projectposition_set-TOTAL_FORMS");
-        $totalFormsInput.val(+$totalFormsInput.val() + num);
+        const newFormNum = parseInt($totalFormsInput.val()) + num;
+
+        $totalFormsInput.val(+newFormNum);
+        return newFormNum;
+    };
+
+    const updateFormSetAttr = (form, count) => {
+        // form.find("input, textarea, select").attr("id", `projectposition_set-${count - 1}-name`);
+        form.find("input, textarea, select").attr("id", function (i, name) {
+            return name.replace(/\d+/, count - 1);
+        });
+        form.find("input, textarea, select").attr("name", function (i, name) {
+            return name.replace(/\d+/, count - 1);
+        });
     };
 
     //Cloner for infinite input lists
@@ -16,7 +29,8 @@ $(document).ready(function () {
         copy.find("input, textarea, select").val("");
         copy.find("*:first-child").focus();
 
-        updateDjangoCounter(1);
+        let formCount = updateDjangoCounter(1);
+        updateFormSetAttr(copy, formCount);
     });
 
     $circleCloneList.on("click", "li:not(:only-child) .circle--clone--remove", function () {
@@ -58,4 +72,32 @@ $(document).ready(function () {
     input.wrap(function () {
         return "<a class='button " + state + "'>" + text + "</div>";
     });
+
+//     $.ajax({
+//     url:  '/rooms/list',
+//     type:  'post',
+//     dataType:  'json',
+//     success: function  (data) {
+//         let rows =  '';
+//         data.rooms.forEach(room => {
+//         rows += `
+//         <tr>
+//             <td>${room.room_number}</td>
+//             <td>${room.name}</td>
+//             <td>${room.nobeds}</td>
+//             <td>${room.room_type}</td>
+//             <td>
+//                 <button class="btn deleteBtn" data-id="${room.id}">Delete</button>
+//                 <button class="btn updateBtn" data-id="${room.id}">Update</button>
+//             </td>
+//         </tr>`;
+//     });
+//     $('[#myTable](https://paper.dropbox.com/?q=%23myTable) > tbody').append(rows);
+//     $('.deleteBtn').each((i, elm) => {
+//         $(elm).on("click",  (e) => {
+//             deleteRoom($(elm))
+//         })
+//     })
+//     }
+// });
 });

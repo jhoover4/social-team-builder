@@ -1,13 +1,11 @@
-from django.contrib.auth import get_user
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.forms import Textarea
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from extra_views import InlineFormSetFactory
 
 from .forms import ProjectForm, ProjectFormSet
-from .models import Project, ProjectPosition
+from .models import Project
 
 
 class ProjectDetailView(DetailView):
@@ -26,49 +24,6 @@ class ProjectDetailView(DetailView):
 
         return context
 
-
-class ProjectPositionInline(InlineFormSetFactory):
-    model = ProjectPosition
-    fields = ['name', 'description', 'related_skills', 'filled', 'time_involvement']
-    factory_kwargs = {'extra': 1,
-                      'widgets': {
-                          'description': Textarea(attrs={'cols': 40,
-                                                         'rows': 10,
-                                                         'placeholder': 'Position description...'}
-                                                  )},
-                      'labels': {
-                          'filled': 'Filled?',
-                      },
-                      'help_texts': {'time_involvement': '(In minutes)'}
-                      }
-
-
-# class ProjectCreateView(LoginRequiredMixin, CreateWithInlinesView):
-#     model = Project
-#     inlines = [ProjectPositionInline]
-#     fields = ['name', 'description', 'time_involvement', 'applicant_requirements']
-#     template_name = 'project_create_edit.html'
-#     login_url = '/profiles/login'
-#
-#     def forms_valid(self, form, inlines):
-#         form.instance.owner = get_user(self.request)
-#
-#         return super(ProjectCreateView, self).forms_valid(form, inlines)
-#         # return super().form_valid(form)
-#
-#     def get_success_url(self):
-#         return self.object.get_absolute_url()
-#
-#
-# class ProjectUpdateView(LoginRequiredMixin, UpdateWithInlinesView):
-#     model = Project
-#     inlines = [ProjectPositionInline]
-#     fields = ['name', 'description', 'time_involvement', 'applicant_requirements']
-#     template_name = 'project_create_edit.html'
-#     login_url = '/profiles/login'
-#
-#     def get_success_url(self):
-#         return self.object.get_absolute_url()
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name = 'project_create_edit.html'
@@ -90,22 +45,57 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         context = self.get_context_data()
         project_positions_form = context['project_positions_formset']
 
-        if form.is_valid() and project_positions_form.is_valid():
-            self.object = form.save(commit=False)
-            form.instance.owner = get_user(self.request)
-            form.save()
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.owner = self.request.user
+            self.object = form.save()
 
-            project_positions_form.instance = self.object
-            project_positions_form.save()
+            if project_positions_form.is_valid():
+                formset = project_positions_form.save(commit=False)
+                for position_form in formset:
+                    position_form.project = self.object
+                    position_form.save()
+                project_positions_form.save()
+                project_positions_form.save_m2m()
 
-        return super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     model = Project
-    fields = '__all__'
-
     template_name = 'project_create_edit.html'
+    form_class = ProjectForm
+    login_url = '/profiles/login'
+
+    def get_success_url(self):
+        return reverse_lazy('create_project:root', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['project_positions_formset'] = ProjectFormSet(self.request.POST, instance=self.object)
+        else:
+            context['project_positions_formset'] = ProjectFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        project_positions_form = context['project_positions_formset']
+
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.owner = self.request.user
+            self.object = form.save()
+
+            if project_positions_form.is_valid():
+                formset = project_positions_form.save(commit=False)
+                for position_form in formset:
+                    position_form.project = self.object
+                    position_form.save()
+                project_positions_form.save()
+                project_positions_form.save_m2m()
+
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProjectDeleteView(DeleteView):
