@@ -1,4 +1,5 @@
 {% extends 'layouts/project_layout.html' %}
+{% load custom_tags %}
 
 {% block project_urls %}
     <input type="submit" form="project_form" class="button button-primary" value="Save Project">
@@ -21,6 +22,9 @@
             {{ form.name.errors }}
             {{ form.name }}
             {{ form.description.errors }}
+            <h2 class="circle--form--title tooltip__descriptor">Project Description</h2>
+            {% markdown_information %}
+            <p class="circle--form--subheader"></p>
             {{ form.description }}
         </div>
 
@@ -33,8 +37,10 @@
                         {{ position_form.errors }}
                         {{ position_form.id }}
                         {{ position_form.name }}
+                        <p class="circle--form--title tooltip__descriptor">Position Description</p>
+                        {% markdown_information %}
                         {{ position_form.description }}
-                        {{ position_form.time_involvement.label }} {{ position_form.time_involvement.help_text }}
+                        <p class="circle--form--title">{{ position_form.time_involvement.label }} {{ position_form.time_involvement.help_text }}</p>
                         {{ position_form.time_involvement }}
                         {{ position_form.related_skills }}
                         <a class="circle--clone--add">Add Position</a>
@@ -65,4 +71,12 @@
                   id="{{ form.applicant_requirements.id_for_label }}"
         >{{ form.applicant_requirements.initial }}</textarea>
     </div>
+    <div class="circle--secondary--module">
+        <p>Don't know markdown? Here's a <a href="https://www.markdownguide.org/basic-syntax" target="_blank">quick
+            guide</a></p>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ form.media }}
 {% endblock %}

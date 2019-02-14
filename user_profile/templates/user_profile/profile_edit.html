@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load custom_tags %}
 
 {% block content %}
 
@@ -31,6 +32,7 @@
                 <textarea name="{{ bio_form.about_me.name }}"
                           placeholder="Tell us about yourself...">{{ bio_form.about_me.value }}</textarea>
             </div>
+            {% markdown_information %}
 
             <h2>Past Projects</h2>
             <table class="u-full-width circle--table">

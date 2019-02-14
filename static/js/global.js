@@ -72,4 +72,12 @@ $(document).ready(function () {
     input.wrap(function () {
         return "<a class='button " + state + "'>" + text + "</div>";
     });
+
+    var $tooltips = $("form .tooltip");
+    if (screen.width < 640) {
+        $tooltips.attr('data-direction', 'bottom');
+        $tooltips.parent().click(function (e) {
+            e.preventDefault();
+        })
+    }
 });

@@ -30,8 +30,8 @@
 
         <div class="grid-70">
             <h1>{{ current_profile.first_name }} {{ current_profile.last_name }}</h1>
-            <div class="circle--article--body">
-                {{ current_profile.profile.about_me }}
+            <div class="circle--article--body markdownx-preview">
+                {{ current_profile.profile.about_me_formatted_markdown|safe }}
             </div>
 
             <h2>Past Projects</h2>

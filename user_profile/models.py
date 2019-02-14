@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
 
 from team_builder import settings
 
@@ -74,7 +76,11 @@ class Profile(models.Model):
     position = models.CharField(max_length=255)
     skills = models.ManyToManyField('Skill')
     avatar = models.ImageField(upload_to='avatars', default='blank-avatar.png')
-    about_me = models.TextField()
+    about_me = MarkdownxField(blank=True)
+
+    @property
+    def about_me_formatted_markdown(self):
+        return markdownify(self.about_me)
 
     def __str__(self):
         return self.user.email

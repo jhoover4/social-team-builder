@@ -19,11 +19,12 @@
                 <h4 class="circle--article--section">Project</h4>
                 <h1 class="circle--article--title">{{ project.name }}</h1>
                 <p class="circle--article--byline">Project Owner:
-                    <a href="{% url 'profiles:root' profile_id=project.owner.pk %}">{{ project.owner.first_name }} {{ project.owner.last_name }}</a></p>
+                    <a href="{% url 'profiles:root' profile_id=project.owner.pk %}">{{ project.owner.first_name }} {{ project.owner.last_name }}</a>
+                </p>
             </div>
 
-            <div class="circle--article--body">
-                <p>{{ project.description }}</p>
+            <div class="circle--article--body markdownx-preview">
+                <p>{{ project.description_formatted_markdown|safe }}</p>
             </div>
 
             <div class="circle--project--positions">
@@ -33,7 +34,9 @@
                     {% for position in project.projectposition_set.all %}
                         <li>
                             <h3>{{ position.name }}</h3>
-                            <p>{{ position.description }}</p>
+                            <div class="markdownx-preview">
+                                <p>{{ position.description_formatted_markdown|safe }}</p>
+                            </div>
                             {% if position.filled %}
                                 <a class="button button-primary button-inactive">Position Filled</a>
                             {% else %}

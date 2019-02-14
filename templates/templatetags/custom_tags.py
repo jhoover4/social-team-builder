@@ -20,3 +20,8 @@ def url_del_attr(request, field):
         url_string.__delitem__(field)
 
     return u"?%s" % (url_string.urlencode())
+
+
+@register.inclusion_tag('markdown_information.html')
+def markdown_information():
+    return

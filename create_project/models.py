@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
 
 from team_builder import settings
 
@@ -12,10 +14,14 @@ class Project(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+    description = MarkdownxField(blank=True)
     time_involvement = models.IntegerField(default=60)
     applicant_requirements = models.TextField(blank=True)
     created = models.DateTimeField(default=timezone.now)
+
+    @property
+    def description_formatted_markdown(self):
+        return markdownify(self.description)
 
     def __str__(self):
         return self.name
@@ -26,10 +32,14 @@ class ProjectPosition(models.Model):
 
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = MarkdownxField(blank=True)
     related_skills = models.ManyToManyField('user_profile.Skill')
     filled = models.BooleanField(default=False)
     time_involvement = models.IntegerField(default=60)  # eg: 10/hours a week. Done in minutes per week
+
+    @property
+    def description_formatted_markdown(self):
+        return markdownify(self.description)
 
     def __str__(self):
         return self.name

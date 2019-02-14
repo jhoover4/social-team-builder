@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'imagekit',
+    'markdownx',
     'user_profile',
     'create_project',
 ]

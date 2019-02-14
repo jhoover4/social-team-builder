@@ -10,7 +10,6 @@ class ProjectForm(ModelForm):
         fields = ('name', 'description', 'time_involvement', 'applicant_requirements')
         widgets = {
             'name': TextInput(attrs={'placeholder': 'Project Title', 'class': 'circle--input--h1'}),
-            'description': Textarea(attrs={'placeholder': 'Position description...'}),
             'time_involvement': Textarea(attrs={'placeholder': 'Time estimate', 'class': 'circle--textarea--input'}),
         }
 

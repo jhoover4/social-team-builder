@@ -28,6 +28,7 @@ urlpatterns = [
     path('profiles/', include(('user_profile.urls', 'user_profile'), namespace='profiles')),
     path('project/', include(('create_project.urls', 'create_project'), namespace='project')),
     path('admin/', admin.site.urls),
+    url(r'^markdownx/', include('markdownx.urls')),
 ]
 
 if settings.DEBUG:
