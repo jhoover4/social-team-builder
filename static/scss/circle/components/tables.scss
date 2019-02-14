@@ -1,0 +1,37 @@
+.circle--table {
+  width: 100%;
+
+  p {
+    margin: 10px 0 0 0;
+  }
+
+  td,
+  th {
+    line-height: 1;
+  }
+
+  th {
+    padding: 0 0 15px 0;
+  }
+
+  td {
+    padding: 25px 0;
+  }
+
+  @for $i from 1 through 6 {
+    h#{$i} {
+      margin: 0;
+    }
+  }
+}
+
+.clickable-row {
+  td {
+    cursor: pointer;
+    color: #a5c4c2;
+  }
+
+  h3 {
+    color: #689b98;
+  }
+}

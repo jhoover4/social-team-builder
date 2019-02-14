@@ -1,0 +1,308 @@
+/* line 2, ../sass/circle/core/mixins.sass */
+.grid-parent:before, .grid-parent:after {
+  content: " ";
+  display: table;
+}
+
+/* line 5, ../sass/circle/core/mixins.sass */
+.grid-parent:after {
+  clear: both;
+}
+
+
+/* line 62, ../sass/circle/core/mixins.sass */
+input[type="email"]::-webkit-input-placeholder, input[type="number"]::-webkit-input-placeholder, input[type="search"]::-webkit-input-placeholder, input[type="text"]::-webkit-input-placeholder, select::-webkit-input-placeholder, input[type="tel"]::-webkit-input-placeholder, input[type="url"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder {
+  font-weight: normal;
+}
+
+/* line 64, ../sass/circle/core/mixins.sass */
+input[type="email"]:-moz-placeholder, input[type="number"]:-moz-placeholder, input[type="search"]:-moz-placeholder, input[type="text"]:-moz-placeholder, select:-moz-placeholder, input[type="tel"]:-moz-placeholder, input[type="url"]:-moz-placeholder, input[type="password"]:-moz-placeholder {
+  font-weight: normal;
+}
+
+/* line 66, ../sass/circle/core/mixins.sass */
+input[type="email"]::-moz-placeholder, input[type="number"]::-moz-placeholder, input[type="search"]::-moz-placeholder, input[type="text"]::-moz-placeholder, select::-moz-placeholder, input[type="tel"]::-moz-placeholder, input[type="url"]::-moz-placeholder, input[type="password"]::-moz-placeholder {
+  font-weight: normal;
+}
+
+/* line 68, ../sass/circle/core/mixins.sass */
+input[type="email"]:-ms-input-placeholder, input[type="number"]:-ms-input-placeholder, input[type="search"]:-ms-input-placeholder, input[type="text"]:-ms-input-placeholder, select:-ms-input-placeholder, input[type="tel"]:-ms-input-placeholder, input[type="url"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder {
+  font-weight: normal;
+}
+
+/* line 2, ../sass/circle/core/mixins.sass */
+.circle--header:before, .circle--header:after {
+  content: " ";
+  display: table;
+}
+
+/* line 5, ../sass/circle/core/mixins.sass */
+.circle--header:after {
+  clear: both;
+}
+
+/* line 62, ../sass/circle/core/mixins.sass */
+.circle--header input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* line 64, ../sass/circle/core/mixins.sass */
+.circle--header input:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* line 66, ../sass/circle/core/mixins.sass */
+.circle--header input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* line 68, ../sass/circle/core/mixins.sass */
+.circle--header input:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* line 62, ../sass/circle/core/mixins.sass */
+.circle--input--h1::-webkit-input-placeholder, input[type="email"].circle--input--h1::-webkit-input-placeholder, input[type="number"].circle--input--h1::-webkit-input-placeholder, input[type="search"].circle--input--h1::-webkit-input-placeholder, input[type="text"].circle--input--h1::-webkit-input-placeholder, select.circle--input--h1::-webkit-input-placeholder, input[type="tel"].circle--input--h1::-webkit-input-placeholder, input[type="url"].circle--input--h1::-webkit-input-placeholder, input[type="password"].circle--input--h1::-webkit-input-placeholder, input[type="email"].circle--input--h2::-webkit-input-placeholder, input[type="number"].circle--input--h2::-webkit-input-placeholder, input[type="search"].circle--input--h2::-webkit-input-placeholder, input[type="text"].circle--input--h2::-webkit-input-placeholder, select.circle--input--h2::-webkit-input-placeholder, input[type="tel"].circle--input--h2::-webkit-input-placeholder, input[type="url"].circle--input--h2::-webkit-input-placeholder, input[type="password"].circle--input--h2::-webkit-input-placeholder, input[type="email"].circle--input--h3::-webkit-input-placeholder, input[type="number"].circle--input--h3::-webkit-input-placeholder, input[type="search"].circle--input--h3::-webkit-input-placeholder, input[type="text"].circle--input--h3::-webkit-input-placeholder, select.circle--input--h3::-webkit-input-placeholder, input[type="tel"].circle--input--h3::-webkit-input-placeholder, input[type="url"].circle--input--h3::-webkit-input-placeholder, input[type="password"].circle--input--h3::-webkit-input-placeholder, input[type="email"].circle--input--h4::-webkit-input-placeholder, input[type="number"].circle--input--h4::-webkit-input-placeholder, input[type="search"].circle--input--h4::-webkit-input-placeholder, input[type="text"].circle--input--h4::-webkit-input-placeholder, select.circle--input--h4::-webkit-input-placeholder, input[type="tel"].circle--input--h4::-webkit-input-placeholder, input[type="url"].circle--input--h4::-webkit-input-placeholder, input[type="password"].circle--input--h4::-webkit-input-placeholder, input[type="email"].circle--input--h5::-webkit-input-placeholder, input[type="number"].circle--input--h5::-webkit-input-placeholder, input[type="search"].circle--input--h5::-webkit-input-placeholder, input[type="text"].circle--input--h5::-webkit-input-placeholder, select.circle--input--h5::-webkit-input-placeholder, input[type="tel"].circle--input--h5::-webkit-input-placeholder, input[type="url"].circle--input--h5::-webkit-input-placeholder, input[type="password"].circle--input--h5::-webkit-input-placeholder, input[type="email"].circle--input--h6::-webkit-input-placeholder, input[type="number"].circle--input--h6::-webkit-input-placeholder, input[type="search"].circle--input--h6::-webkit-input-placeholder, input[type="text"].circle--input--h6::-webkit-input-placeholder, select.circle--input--h6::-webkit-input-placeholder, input[type="tel"].circle--input--h6::-webkit-input-placeholder, input[type="url"].circle--input--h6::-webkit-input-placeholder, input[type="password"].circle--input--h6::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 64, ../sass/circle/core/mixins.sass */
+.circle--input--h1:-moz-placeholder, input[type="email"].circle--input--h1:-moz-placeholder, input[type="number"].circle--input--h1:-moz-placeholder, input[type="search"].circle--input--h1:-moz-placeholder, input[type="text"].circle--input--h1:-moz-placeholder, select.circle--input--h1:-moz-placeholder, input[type="tel"].circle--input--h1:-moz-placeholder, input[type="url"].circle--input--h1:-moz-placeholder, input[type="password"].circle--input--h1:-moz-placeholder, input[type="email"].circle--input--h2:-moz-placeholder, input[type="number"].circle--input--h2:-moz-placeholder, input[type="search"].circle--input--h2:-moz-placeholder, input[type="text"].circle--input--h2:-moz-placeholder, select.circle--input--h2:-moz-placeholder, input[type="tel"].circle--input--h2:-moz-placeholder, input[type="url"].circle--input--h2:-moz-placeholder, input[type="password"].circle--input--h2:-moz-placeholder, input[type="email"].circle--input--h3:-moz-placeholder, input[type="number"].circle--input--h3:-moz-placeholder, input[type="search"].circle--input--h3:-moz-placeholder, input[type="text"].circle--input--h3:-moz-placeholder, select.circle--input--h3:-moz-placeholder, input[type="tel"].circle--input--h3:-moz-placeholder, input[type="url"].circle--input--h3:-moz-placeholder, input[type="password"].circle--input--h3:-moz-placeholder, input[type="email"].circle--input--h4:-moz-placeholder, input[type="number"].circle--input--h4:-moz-placeholder, input[type="search"].circle--input--h4:-moz-placeholder, input[type="text"].circle--input--h4:-moz-placeholder, select.circle--input--h4:-moz-placeholder, input[type="tel"].circle--input--h4:-moz-placeholder, input[type="url"].circle--input--h4:-moz-placeholder, input[type="password"].circle--input--h4:-moz-placeholder, input[type="email"].circle--input--h5:-moz-placeholder, input[type="number"].circle--input--h5:-moz-placeholder, input[type="search"].circle--input--h5:-moz-placeholder, input[type="text"].circle--input--h5:-moz-placeholder, select.circle--input--h5:-moz-placeholder, input[type="tel"].circle--input--h5:-moz-placeholder, input[type="url"].circle--input--h5:-moz-placeholder, input[type="password"].circle--input--h5:-moz-placeholder, input[type="email"].circle--input--h6:-moz-placeholder, input[type="number"].circle--input--h6:-moz-placeholder, input[type="search"].circle--input--h6:-moz-placeholder, input[type="text"].circle--input--h6:-moz-placeholder, select.circle--input--h6:-moz-placeholder, input[type="tel"].circle--input--h6:-moz-placeholder, input[type="url"].circle--input--h6:-moz-placeholder, input[type="password"].circle--input--h6:-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 66, ../sass/circle/core/mixins.sass */
+.circle--input--h1::-moz-placeholder, input[type="email"].circle--input--h1::-moz-placeholder, input[type="number"].circle--input--h1::-moz-placeholder, input[type="search"].circle--input--h1::-moz-placeholder, input[type="text"].circle--input--h1::-moz-placeholder, select.circle--input--h1::-moz-placeholder, input[type="tel"].circle--input--h1::-moz-placeholder, input[type="url"].circle--input--h1::-moz-placeholder, input[type="password"].circle--input--h1::-moz-placeholder, input[type="email"].circle--input--h2::-moz-placeholder, input[type="number"].circle--input--h2::-moz-placeholder, input[type="search"].circle--input--h2::-moz-placeholder, input[type="text"].circle--input--h2::-moz-placeholder, select.circle--input--h2::-moz-placeholder, input[type="tel"].circle--input--h2::-moz-placeholder, input[type="url"].circle--input--h2::-moz-placeholder, input[type="password"].circle--input--h2::-moz-placeholder, input[type="email"].circle--input--h3::-moz-placeholder, input[type="number"].circle--input--h3::-moz-placeholder, input[type="search"].circle--input--h3::-moz-placeholder, input[type="text"].circle--input--h3::-moz-placeholder, select.circle--input--h3::-moz-placeholder, input[type="tel"].circle--input--h3::-moz-placeholder, input[type="url"].circle--input--h3::-moz-placeholder, input[type="password"].circle--input--h3::-moz-placeholder, input[type="email"].circle--input--h4::-moz-placeholder, input[type="number"].circle--input--h4::-moz-placeholder, input[type="search"].circle--input--h4::-moz-placeholder, input[type="text"].circle--input--h4::-moz-placeholder, select.circle--input--h4::-moz-placeholder, input[type="tel"].circle--input--h4::-moz-placeholder, input[type="url"].circle--input--h4::-moz-placeholder, input[type="password"].circle--input--h4::-moz-placeholder, input[type="email"].circle--input--h5::-moz-placeholder, input[type="number"].circle--input--h5::-moz-placeholder, input[type="search"].circle--input--h5::-moz-placeholder, input[type="text"].circle--input--h5::-moz-placeholder, select.circle--input--h5::-moz-placeholder, input[type="tel"].circle--input--h5::-moz-placeholder, input[type="url"].circle--input--h5::-moz-placeholder, input[type="password"].circle--input--h5::-moz-placeholder, input[type="email"].circle--input--h6::-moz-placeholder, input[type="number"].circle--input--h6::-moz-placeholder, input[type="search"].circle--input--h6::-moz-placeholder, input[type="text"].circle--input--h6::-moz-placeholder, select.circle--input--h6::-moz-placeholder, input[type="tel"].circle--input--h6::-moz-placeholder, input[type="url"].circle--input--h6::-moz-placeholder, input[type="password"].circle--input--h6::-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 68, ../sass/circle/core/mixins.sass */
+.circle--input--h1:-ms-input-placeholder, input[type="email"].circle--input--h1:-ms-input-placeholder, input[type="number"].circle--input--h1:-ms-input-placeholder, input[type="search"].circle--input--h1:-ms-input-placeholder, input[type="text"].circle--input--h1:-ms-input-placeholder, select.circle--input--h1:-ms-input-placeholder, input[type="tel"].circle--input--h1:-ms-input-placeholder, input[type="url"].circle--input--h1:-ms-input-placeholder, input[type="password"].circle--input--h1:-ms-input-placeholder, input[type="email"].circle--input--h2:-ms-input-placeholder, input[type="number"].circle--input--h2:-ms-input-placeholder, input[type="search"].circle--input--h2:-ms-input-placeholder, input[type="text"].circle--input--h2:-ms-input-placeholder, select.circle--input--h2:-ms-input-placeholder, input[type="tel"].circle--input--h2:-ms-input-placeholder, input[type="url"].circle--input--h2:-ms-input-placeholder, input[type="password"].circle--input--h2:-ms-input-placeholder, input[type="email"].circle--input--h3:-ms-input-placeholder, input[type="number"].circle--input--h3:-ms-input-placeholder, input[type="search"].circle--input--h3:-ms-input-placeholder, input[type="text"].circle--input--h3:-ms-input-placeholder, select.circle--input--h3:-ms-input-placeholder, input[type="tel"].circle--input--h3:-ms-input-placeholder, input[type="url"].circle--input--h3:-ms-input-placeholder, input[type="password"].circle--input--h3:-ms-input-placeholder, input[type="email"].circle--input--h4:-ms-input-placeholder, input[type="number"].circle--input--h4:-ms-input-placeholder, input[type="search"].circle--input--h4:-ms-input-placeholder, input[type="text"].circle--input--h4:-ms-input-placeholder, select.circle--input--h4:-ms-input-placeholder, input[type="tel"].circle--input--h4:-ms-input-placeholder, input[type="url"].circle--input--h4:-ms-input-placeholder, input[type="password"].circle--input--h4:-ms-input-placeholder, input[type="email"].circle--input--h5:-ms-input-placeholder, input[type="number"].circle--input--h5:-ms-input-placeholder, input[type="search"].circle--input--h5:-ms-input-placeholder, input[type="text"].circle--input--h5:-ms-input-placeholder, select.circle--input--h5:-ms-input-placeholder, input[type="tel"].circle--input--h5:-ms-input-placeholder, input[type="url"].circle--input--h5:-ms-input-placeholder, input[type="password"].circle--input--h5:-ms-input-placeholder, input[type="email"].circle--input--h6:-ms-input-placeholder, input[type="number"].circle--input--h6:-ms-input-placeholder, input[type="search"].circle--input--h6:-ms-input-placeholder, input[type="text"].circle--input--h6:-ms-input-placeholder, select.circle--input--h6:-ms-input-placeholder, input[type="tel"].circle--input--h6:-ms-input-placeholder, input[type="url"].circle--input--h6:-ms-input-placeholder, input[type="password"].circle--input--h6:-ms-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 62, ../sass/circle/core/mixins.sass */
+.circle--input--h2::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 64, ../sass/circle/core/mixins.sass */
+.circle--input--h2:-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 66, ../sass/circle/core/mixins.sass */
+.circle--input--h2::-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 68, ../sass/circle/core/mixins.sass */
+.circle--input--h2:-ms-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 62, ../sass/circle/core/mixins.sass */
+.circle--input--h3::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 64, ../sass/circle/core/mixins.sass */
+.circle--input--h3:-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 66, ../sass/circle/core/mixins.sass */
+.circle--input--h3::-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 68, ../sass/circle/core/mixins.sass */
+.circle--input--h3:-ms-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 62, ../sass/circle/core/mixins.sass */
+.circle--input--h4::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 64, ../sass/circle/core/mixins.sass */
+.circle--input--h4:-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 66, ../sass/circle/core/mixins.sass */
+.circle--input--h4::-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 68, ../sass/circle/core/mixins.sass */
+.circle--input--h4:-ms-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 62, ../sass/circle/core/mixins.sass */
+.circle--input--h5::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 64, ../sass/circle/core/mixins.sass */
+.circle--input--h5:-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 66, ../sass/circle/core/mixins.sass */
+.circle--input--h5::-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 68, ../sass/circle/core/mixins.sass */
+.circle--input--h5:-ms-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 62, ../sass/circle/core/mixins.sass */
+.circle--input--h6::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 64, ../sass/circle/core/mixins.sass */
+.circle--input--h6:-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 66, ../sass/circle/core/mixins.sass */
+.circle--input--h6::-moz-placeholder {
+  font-weight: bold;
+}
+
+/* line 68, ../sass/circle/core/mixins.sass */
+.circle--input--h6:-ms-input-placeholder {
+  font-weight: bold;
+}
+
+/* line 2, ../sass/circle/core/mixins.sass */
+.circle--secondary--module:before, .circle--secondary--module:after {
+  content: " ";
+  display: table;
+}
+
+/* line 5, ../sass/circle/core/mixins.sass */
+.circle--secondary--module:after {
+  clear: both;
+}
+
+/* line 2, ../sass/circle/core/mixins.sass */
+.circle--page:before, .circle--page:after {
+  content: " ";
+  display: table;
+}
+
+/* line 5, ../sass/circle/core/mixins.sass */
+.circle--page:after {
+  clear: both;
+}
+
+/* line 2, ../sass/circle/core/mixins.sass */
+.circle--actions--bar:before, .circle--actions--bar:after {
+  content: " ";
+  display: table;
+}
+
+/* line 5, ../sass/circle/core/mixins.sass */
+.circle--actions--bar:after {
+  clear: both;
+}
+
+/* line 73, ../sass/circle/core/mixins.sass */
+.circle--primary--avatar:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 100%;
+}
+
+/* line 78, ../sass/circle/core/mixins.sass */
+.circle--primary--avatar > .placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+
+// 28:     @each $header in ($headers)
+//29:       &--#{$header}
+
+// 30:         font-weight: bold
+//31:         color: $display-color
+//32:         font-family: $display-font
+//33:         +placeholder
+
+/*
+Error: Undefined mixin 'clearfix'.
+        on line 26 of /Users/Tyson/social_team_building/sass/circle/components/containers.sass, in `clearfix'
+        from line 26 of /Users/Tyson/social_team_building/sass/circle/components/containers.sass
+
+21:       text-align: right
+22:
+23:   &--secondary
+24:     &--module
+25:       margin-bottom: 50px
+26:       +clearfix
+27:       >
+28:         #{$headers}
+29:           font-family: $body-font
+30:           color: rgba(#222, .3)
+31:           font-size: 1.4rem
+
+1: .circle
+2:   &--header
+3:     background: $header-color
+4:     padding: 20px 0
+5:     margin-bottom: 30px
+6:     +clearfix
+7:     #{$headers}
+8:       margin: 0 30px 0 0
+
+/*
+Error: Undefined variable: "$link".
+        on line 6 of /Users/Tyson/circle/sass/circle/core/forms.sass
+
+1: // Forms
+2: ////////////////////////////////////////////////////
+3:
+4: textarea
+5:   padding: 15px
+6:   border: 1px solid lighten($link, 30%)
+7:   box-shadow: none
+8:   box-sizing: border-box
+9:   min-height: 200px
+10:   width: 100%
+11:   font-size: 1.6rem
+
+/*
+Error: Undefined variable: "$gutter-width".
+        on line 1 of /Users/Tyson/circle/sass/circle/core/layout.sass
+
+1: $column-padding: $gutter-width / 2
+2: $columns: 5, 10, 15, 20, 25, 30, 33.333, 35, 40, 45, 50, 55, 60, 65, 66.666, 70, 75, 80, 90, 95, 100
+3:
+4:
+5: // Grid
+6: .bounds
+
+*/
+
+@function assign-inputs($inputs, $pseudo: null) {
+  $list : ();
+
+  @each $input in $inputs {
+    $input: unquote($input);
+    $input: if($pseudo, $input + ":" + $pseudo, $input);
+    $list: append($list, $input, comma);
+  }
+
+  @return $list;
+}

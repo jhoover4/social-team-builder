@@ -1,0 +1,49 @@
+.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.centered {
+  float: none;
+  margin: 0 auto;
+  clear: both;
+}
+
+.hide-text {
+  font-size: 0 !important;
+}
+
+.unloaded {
+  list-style: none;
+}
+
+.align-top {
+  vertical-align: top;
+
+  td {
+    vertical-align: top;
+  }
+}
+
+.align-right {
+  text-align: right;
+}
+
+.positive {
+  color: $positive;
+}
+
+.negative {
+  color: $negative;
+}
+
+.secondary-label {
+  color: #b1a5c4;
+}
+
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid $border-color;
+}

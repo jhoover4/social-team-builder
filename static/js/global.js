@@ -72,32 +72,4 @@ $(document).ready(function () {
     input.wrap(function () {
         return "<a class='button " + state + "'>" + text + "</div>";
     });
-
-//     $.ajax({
-//     url:  '/rooms/list',
-//     type:  'post',
-//     dataType:  'json',
-//     success: function  (data) {
-//         let rows =  '';
-//         data.rooms.forEach(room => {
-//         rows += `
-//         <tr>
-//             <td>${room.room_number}</td>
-//             <td>${room.name}</td>
-//             <td>${room.nobeds}</td>
-//             <td>${room.room_type}</td>
-//             <td>
-//                 <button class="btn deleteBtn" data-id="${room.id}">Delete</button>
-//                 <button class="btn updateBtn" data-id="${room.id}">Update</button>
-//             </td>
-//         </tr>`;
-//     });
-//     $('[#myTable](https://paper.dropbox.com/?q=%23myTable) > tbody').append(rows);
-//     $('.deleteBtn').each((i, elm) => {
-//         $(elm).on("click",  (e) => {
-//             deleteRoom($(elm))
-//         })
-//     })
-//     }
-// });
 });

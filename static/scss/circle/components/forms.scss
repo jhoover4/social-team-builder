@@ -1,0 +1,255 @@
+.circle--search {
+  position: relative;
+
+  input {
+    margin: 0;
+  }
+
+  button {
+    height: 20px;
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .search {
+    width: 20px;
+    height: auto;
+    fill: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.circle--textarea--input {
+  height: 50px;
+  min-height: 0;
+  padding: 11px 15px;
+}
+
+.circle--input--h1, input[type="email"].circle--input--h1, input[type="number"].circle--input--h1, input[type="search"].circle--input--h1, input[type="text"].circle--input--h1, select.circle--input--h1, input[type="tel"].circle--input--h1, input[type="url"].circle--input--h1, input[type="password"].circle--input--h1, input[type="email"].circle--input--h2, input[type="number"].circle--input--h2, input[type="search"].circle--input--h2, input[type="text"].circle--input--h2, select.circle--input--h2, input[type="tel"].circle--input--h2, input[type="url"].circle--input--h2, input[type="password"].circle--input--h2, input[type="email"].circle--input--h3, input[type="number"].circle--input--h3, input[type="search"].circle--input--h3, input[type="text"].circle--input--h3, select.circle--input--h3, input[type="tel"].circle--input--h3, input[type="url"].circle--input--h3, input[type="password"].circle--input--h3, input[type="email"].circle--input--h4, input[type="number"].circle--input--h4, input[type="search"].circle--input--h4, input[type="text"].circle--input--h4, select.circle--input--h4, input[type="tel"].circle--input--h4, input[type="url"].circle--input--h4, input[type="password"].circle--input--h4, input[type="email"].circle--input--h5, input[type="number"].circle--input--h5, input[type="search"].circle--input--h5, input[type="text"].circle--input--h5, select.circle--input--h5, input[type="tel"].circle--input--h5, input[type="url"].circle--input--h5, input[type="password"].circle--input--h5, input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, input[type="search"].circle--input--h6, input[type="text"].circle--input--h6, select.circle--input--h6, input[type="tel"].circle--input--h6, input[type="url"].circle--input--h6, input[type="password"].circle--input--h6 {
+  font-weight: bold;
+  color: #222;
+  font-family: $display-font;
+}
+
+@for $i from 2 through 6 {
+  // Example .circle--input--h2
+  .circle--input--h#{$i} {
+    font-weight: bold;
+    color: #222;
+    font-family: $display-font;
+  }
+}
+
+/* line 35, ../sass/circle/components/forms.sass */
+.circle--input--h1, input[type="email"].circle--input--h1, input[type="number"].circle--input--h1, input[type="search"].circle--input--h1, input[type="text"].circle--input--h1, select.circle--input--h1, input[type="tel"].circle--input--h1, input[type="url"].circle--input--h1, input[type="password"].circle--input--h1, input[type="email"].circle--input--h2, input[type="number"].circle--input--h2, input[type="search"].circle--input--h2, input[type="text"].circle--input--h2, select.circle--input--h2, input[type="tel"].circle--input--h2, input[type="url"].circle--input--h2, input[type="password"].circle--input--h2, input[type="email"].circle--input--h3, input[type="number"].circle--input--h3, input[type="search"].circle--input--h3, input[type="text"].circle--input--h3, select.circle--input--h3, input[type="tel"].circle--input--h3, input[type="url"].circle--input--h3, input[type="password"].circle--input--h3, input[type="email"].circle--input--h4, input[type="number"].circle--input--h4, input[type="search"].circle--input--h4, input[type="text"].circle--input--h4, select.circle--input--h4, input[type="tel"].circle--input--h4, input[type="url"].circle--input--h4, input[type="password"].circle--input--h4, input[type="email"].circle--input--h5, input[type="number"].circle--input--h5, input[type="search"].circle--input--h5, input[type="text"].circle--input--h5, select.circle--input--h5, input[type="tel"].circle--input--h5, input[type="url"].circle--input--h5, input[type="password"].circle--input--h5, input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, input[type="search"].circle--input--h6, input[type="text"].circle--input--h6, select.circle--input--h6, input[type="tel"].circle--input--h6, input[type="url"].circle--input--h6, input[type="password"].circle--input--h6 {
+  font-size: 3.8rem;
+}
+
+/* line 37, ../sass/circle/components/forms.sass */
+.circle--input--h2 {
+  font-size: 2.4rem;
+}
+
+/* line 39, ../sass/circle/components/forms.sass */
+.circle--input--h3 {
+  font-size: 1.8rem;
+}
+
+/* line 41, ../sass/circle/components/forms.sass */
+.circle--input--h4 {
+  font-size: 1.6rem;
+}
+
+/* line 43, ../sass/circle/components/forms.sass */
+.circle--input--h5 {
+  font-size: 1.4rem;
+}
+
+/* line 45, ../sass/circle/components/forms.sass */
+.circle--input--h6 {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: #999;
+}
+
+/* line 63, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h2, input[type="number"].circle--input--h2, input[type="search"].circle--input--h2, input[type="text"].circle--input--h2, select.circle--input--h2, input[type="tel"].circle--input--h2, input[type="url"].circle--input--h2, input[type="password"].circle--input--h2 {
+  font-size: 2.4rem;
+}
+
+/* line 65, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h3, input[type="number"].circle--input--h3, input[type="search"].circle--input--h3, input[type="text"].circle--input--h3, select.circle--input--h3, input[type="tel"].circle--input--h3, input[type="url"].circle--input--h3, input[type="password"].circle--input--h3 {
+  font-size: 1.8rem;
+}
+
+/* line 67, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h4, input[type="number"].circle--input--h4, input[type="search"].circle--input--h4, input[type="text"].circle--input--h4, select.circle--input--h4, input[type="tel"].circle--input--h4, input[type="url"].circle--input--h4, input[type="password"].circle--input--h4 {
+  font-size: 1.6rem;
+}
+
+/* line 69, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h5, input[type="number"].circle--input--h5, input[type="search"].circle--input--h5, input[type="text"].circle--input--h5, select.circle--input--h5, input[type="tel"].circle--input--h5, input[type="url"].circle--input--h5, input[type="password"].circle--input--h5 {
+  font-size: 1.4rem;
+}
+
+/* line 71, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, input[type="search"].circle--input--h6, input[type="text"].circle--input--h6, select.circle--input--h6, input[type="tel"].circle--input--h6, input[type="url"].circle--input--h6, input[type="password"].circle--input--h6 {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: #999;
+}
+
+/* line 63, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h2, input[type="number"].circle--input--h2, input[type="search"].circle--input--h2, input[type="text"].circle--input--h2, select.circle--input--h2, input[type="tel"].circle--input--h2, input[type="url"].circle--input--h2, input[type="password"].circle--input--h2 {
+  font-size: 2.4rem;
+}
+
+/* line 65, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h3, input[type="number"].circle--input--h3, input[type="search"].circle--input--h3, input[type="text"].circle--input--h3, select.circle--input--h3, input[type="tel"].circle--input--h3, input[type="url"].circle--input--h3, input[type="password"].circle--input--h3 {
+  font-size: 1.8rem;
+}
+
+/* line 67, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h4, input[type="number"].circle--input--h4, input[type="search"].circle--input--h4, input[type="text"].circle--input--h4, select.circle--input--h4, input[type="tel"].circle--input--h4, input[type="url"].circle--input--h4, input[type="password"].circle--input--h4 {
+  font-size: 1.6rem;
+}
+
+/* line 69, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h5, input[type="number"].circle--input--h5, input[type="search"].circle--input--h5, input[type="text"].circle--input--h5, select.circle--input--h5, input[type="tel"].circle--input--h5, input[type="url"].circle--input--h5, input[type="password"].circle--input--h5 {
+  font-size: 1.4rem;
+}
+
+/* line 71, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, input[type="search"].circle--input--h6, input[type="text"].circle--input--h6, select.circle--input--h6, input[type="tel"].circle--input--h6, input[type="url"].circle--input--h6, input[type="password"].circle--input--h6 {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: #999;
+}
+
+/* line 63, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h2, input[type="number"].circle--input--h2, input[type="search"].circle--input--h2, input[type="text"].circle--input--h2, select.circle--input--h2, input[type="tel"].circle--input--h2, input[type="url"].circle--input--h2, input[type="password"].circle--input--h2 {
+  font-size: 2.4rem;
+}
+
+/* line 65, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h3, input[type="number"].circle--input--h3, input[type="search"].circle--input--h3, input[type="text"].circle--input--h3, select.circle--input--h3, input[type="tel"].circle--input--h3, input[type="url"].circle--input--h3, input[type="password"].circle--input--h3 {
+  font-size: 1.8rem;
+}
+
+/* line 67, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h4, input[type="number"].circle--input--h4, input[type="search"].circle--input--h4, input[type="text"].circle--input--h4, select.circle--input--h4, input[type="tel"].circle--input--h4, input[type="url"].circle--input--h4, input[type="password"].circle--input--h4 {
+  font-size: 1.6rem;
+}
+
+/* line 69, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h5, input[type="number"].circle--input--h5, input[type="search"].circle--input--h5, input[type="text"].circle--input--h5, select.circle--input--h5, input[type="tel"].circle--input--h5, input[type="url"].circle--input--h5, input[type="password"].circle--input--h5 {
+  font-size: 1.4rem;
+}
+
+/* line 71, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, input[type="search"].circle--input--h6, input[type="text"].circle--input--h6, select.circle--input--h6, input[type="tel"].circle--input--h6, input[type="url"].circle--input--h6, input[type="password"].circle--input--h6 {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: #999;
+}
+
+/* line 63, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h2, input[type="number"].circle--input--h2, input[type="search"].circle--input--h2, input[type="text"].circle--input--h2, select.circle--input--h2, input[type="tel"].circle--input--h2, input[type="url"].circle--input--h2, input[type="password"].circle--input--h2 {
+  font-size: 2.4rem;
+}
+
+/* line 65, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h3, input[type="number"].circle--input--h3, input[type="search"].circle--input--h3, input[type="text"].circle--input--h3, select.circle--input--h3, input[type="tel"].circle--input--h3, input[type="url"].circle--input--h3, input[type="password"].circle--input--h3 {
+  font-size: 1.8rem;
+}
+
+/* line 67, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h4, input[type="number"].circle--input--h4, input[type="search"].circle--input--h4, input[type="text"].circle--input--h4, select.circle--input--h4, input[type="tel"].circle--input--h4, input[type="url"].circle--input--h4, input[type="password"].circle--input--h4 {
+  font-size: 1.6rem;
+}
+
+/* line 69, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h5, input[type="number"].circle--input--h5, input[type="search"].circle--input--h5, input[type="text"].circle--input--h5, select.circle--input--h5, input[type="tel"].circle--input--h5, input[type="url"].circle--input--h5, input[type="password"].circle--input--h5 {
+  font-size: 1.4rem;
+}
+
+/* line 71, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, input[type="search"].circle--input--h6, input[type="text"].circle--input--h6, select.circle--input--h6, input[type="tel"].circle--input--h6, input[type="url"].circle--input--h6, input[type="password"].circle--input--h6 {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: #999;
+}
+
+/* line 63, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h2, input[type="number"].circle--input--h2, input[type="search"].circle--input--h2, input[type="text"].circle--input--h2, select.circle--input--h2, input[type="tel"].circle--input--h2, input[type="url"].circle--input--h2, input[type="password"].circle--input--h2 {
+  font-size: 2.4rem;
+}
+
+/* line 65, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h3, input[type="number"].circle--input--h3, input[type="search"].circle--input--h3, input[type="text"].circle--input--h3, select.circle--input--h3, input[type="tel"].circle--input--h3, input[type="url"].circle--input--h3, input[type="password"].circle--input--h3 {
+  font-size: 1.8rem;
+}
+
+/* line 67, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h4, input[type="number"].circle--input--h4, input[type="search"].circle--input--h4, input[type="text"].circle--input--h4, select.circle--input--h4, input[type="tel"].circle--input--h4, input[type="url"].circle--input--h4, input[type="password"].circle--input--h4 {
+  font-size: 1.6rem;
+}
+
+/* line 69, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h5, input[type="number"].circle--input--h5, input[type="search"].circle--input--h5, input[type="text"].circle--input--h5, select.circle--input--h5, input[type="tel"].circle--input--h5, input[type="url"].circle--input--h5, input[type="password"].circle--input--h5 {
+  font-size: 1.4rem;
+}
+
+/* line 71, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, input[type="search"].circle--input--h6, input[type="text"].circle--input--h6, select.circle--input--h6, input[type="tel"].circle--input--h6, input[type="url"].circle--input--h6, input[type="password"].circle--input--h6 {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: #999;
+}
+
+/* line 63, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h2, input[type="number"].circle--input--h2, input[type="search"].circle--input--h2, input[type="text"].circle--input--h2, select.circle--input--h2, input[type="tel"].circle--input--h2, input[type="url"].circle--input--h2, input[type="password"].circle--input--h2 {
+  font-size: 2.4rem;
+}
+
+/* line 65, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h3, input[type="number"].circle--input--h3, input[type="search"].circle--input--h3, input[type="text"].circle--input--h3, select.circle--input--h3, input[type="tel"].circle--input--h3, input[type="url"].circle--input--h3, input[type="password"].circle--input--h3 {
+  font-size: 1.8rem;
+}
+
+/* line 67, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h4, input[type="number"].circle--input--h4, input[type="search"].circle--input--h4, input[type="text"].circle--input--h4, select.circle--input--h4, input[type="tel"].circle--input--h4, input[type="url"].circle--input--h4, input[type="password"].circle--input--h4 {
+  font-size: 1.6rem;
+}
+
+/* line 69, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h5, input[type="number"].circle--input--h5, input[type="search"].circle--input--h5, input[type="text"].circle--input--h5, select.circle--input--h5, input[type="tel"].circle--input--h5, input[type="url"].circle--input--h5, input[type="password"].circle--input--h5 {
+  font-size: 1.4rem;
+}
+
+/* line 71, ../sass/circle/components/forms.sass */
+input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, input[type="search"].circle--input--h6, input[type="text"].circle--input--h6, select.circle--input--h6, input[type="tel"].circle--input--h6, input[type="url"].circle--input--h6, input[type="password"].circle--input--h6 {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: #999;
+}
+
+.circle--form--delete {
+  display: inline-block;
+  margin: 0;
+}
+
+.circle--form--title {
+  margin: 1em 0 0 0;
+}
+
+.circle--form--subheader {
+  margin: 0 1em 1em 1em;
+}
+

@@ -1,0 +1,138 @@
+.circle--inline--list, .circle--header ul {
+  font-family: $display-font;
+  margin: 0;
+  font-size: 0;
+  white-space: nowrap;
+}
+
+.circle--inline--list a, .circle--header ul a {
+  display: block;
+  text-decoration: none;
+}
+
+.circle--inline--list li, .circle--header ul li {
+  display: inline-block;
+  padding: 0 15px;
+  font-size: 1.6rem;
+}
+
+.circle--inline--list li:first-child, .circle--header ul li:first-child {
+  padding-left: 0;
+}
+
+.circle--inline--list li:last-child, .circle--header ul li:last-child {
+  padding-right: 0;
+}
+
+.circle--link--list {
+  list-style-type: none;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.circle--filter--list {
+  list-style-type: none;
+
+  a {
+    text-decoration: none;
+    color: rgba(34, 34, 34, 0.5);
+  }
+
+  a:hover {
+    color: #a5c4c2;
+  }
+
+  a.selected {
+    color: #222;
+    font-weight: bold;
+  }
+}
+
+.circle--group--list {
+  border-top: 1px solid $border-color;
+  list-style: none;
+
+  li {
+    border-bottom: 1px solid $border-color;
+    padding: 2rem 0 2rem 3rem;
+
+    &:before {
+      content: "";
+      float: left;
+      margin: 10px 0 0 -30px;
+      width: 5px;
+      height: 5px;
+      border: 1px solid #999;
+      border-radius: 10px;
+      display: block;
+    }
+  }
+}
+
+.circle--clone--list {
+  list-style-type: none;
+
+  a {
+    text-decoration: none;
+    font-family: $display-font;
+    font-weight: bold;
+  }
+}
+
+.circle--clone--add, .circle--clone--remove {
+  cursor: pointer;
+}
+
+.circle--clone--remove {
+  float: right;
+  color: #a5c4c2;
+
+  &:hover {
+    color: #537d7b;
+  }
+}
+
+.circle--pill--list {
+  margin: 0;
+  white-space: nowrap;
+  padding: 0 15px;
+
+  li {
+    display: inline-block;
+    margin: 0 15px 0 0;
+  }
+
+  a {
+    padding: 12px 20px;
+    font-family: $display-font;
+    font-size: 1.6rem;
+    display: inline-block;
+    color: #222;
+    font-weight: bold;
+    border-radius: 50px;
+    line-height: 1;
+    text-decoration: none;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+
+  a:hover {
+    background: #eee;
+  }
+
+  a:active {
+    background: #444;
+  }
+
+  a:active,
+  .selected,
+  .selected:hover {
+    background: #444;
+    color: #fff;
+  }
+}

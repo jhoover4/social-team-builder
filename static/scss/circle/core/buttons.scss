@@ -1,0 +1,179 @@
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  font-family: $display-font;
+  font-size: 1.6rem;
+  padding: 18px 30px;
+  border: 0;
+  margin-right: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: inline-block;
+  white-space: nowrap;
+  box-sizing: border-box;
+  line-height: 1;
+  text-decoration: none;
+  color: #689b98;
+  background: none;
+  box-shadow: 0 0 0 2px #689b98 inset;
+  position: relative;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  outline: none;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
+  box-shadow: 0 0 0 2px #537d7b inset;
+  color: #537d7b;
+  outline: 0;
+}
+
+.button:hover svg,
+button:hover svg,
+input[type="submit"]:hover svg,
+input[type="reset"]:hover svg,
+input[type="button"]:hover svg {
+  fill: #537d7b;
+}
+
+.button svg,
+button svg,
+input[type="submit"] svg,
+input[type="reset"] svg,
+input[type="button"] svg {
+  fill: #689b98;
+  width: auto;
+  height: 13px;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  top: 1px;
+  bottom: -3px;
+}
+
+.button.icon-on-left svg,
+button.icon-on-left svg,
+input[type="submit"].icon-on-left svg,
+input[type="reset"].icon-on-left svg,
+input[type="button"].icon-on-left svg {
+  left: -5px;
+}
+
+.button.icon-on-right svg,
+button.icon-on-right svg,
+input[type="submit"].icon-on-right svg,
+input[type="reset"].icon-on-right svg,
+input[type="button"].icon-on-right svg {
+  right: -5px;
+}
+
+.button {
+  cursor: pointer;
+
+  input[type="file"] {
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+  }
+}
+
+.button.button-primary, input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary,
+button.button-primary {
+  color: #fff;
+  background-color: #689b98;
+}
+
+.button.button-primary svg, input[type="submit"].button-primary svg,
+input[type="reset"].button-primary svg,
+input[type="button"].button-primary svg,
+button.button-primary svg {
+  fill: #fff;
+}
+
+.button.button-primary:hover, input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover, input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus, .button.button-primary:focus, input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus,
+button.button-primary:hover,
+button.button-primary:focus {
+  background-color: #537d7b;
+}
+
+.button.button-inactive, .button.button-inactive:hover, .button.button-inactive:focus,
+button.button-inactive:hover,
+button.button-inactive:focus, input[type="submit"].button-inactive,
+input[type="reset"].button-inactive,
+input[type="button"].button-inactive, input[type="submit"].button-inactive:hover, input[type="submit"].button-inactive:focus,
+input[type="reset"].button-inactive:hover,
+input[type="reset"].button-inactive:focus,
+input[type="button"].button-inactive:hover,
+input[type="button"].button-inactive:focus,
+button.button-inactive {
+  color: #fff;
+  background-color: #cccccc;
+  box-shadow: none;
+}
+
+.button.button-inactive svg, .button.button-inactive:hover svg, .button.button-inactive:focus svg,
+button.button-inactive:hover svg,
+button.button-inactive:focus svg, input[type="submit"].button-inactive svg,
+input[type="reset"].button-inactive svg,
+input[type="button"].button-inactive svg, input[type="submit"].button-inactive:hover svg, input[type="submit"].button-inactive:focus svg,
+input[type="reset"].button-inactive:hover svg,
+input[type="reset"].button-inactive:focus svg,
+input[type="button"].button-inactive:hover svg,
+input[type="button"].button-inactive:focus svg,
+button.button-inactive svg {
+  fill: #fff;
+}
+
+.button.button-text, input[type="submit"].button-text,
+input[type="reset"].button-text,
+input[type="button"].button-text, input[type="submit"].button-text:hover, input[type="submit"].button-text:focus,
+input[type="reset"].button-text:hover,
+input[type="reset"].button-text:focus,
+input[type="button"].button-text:hover,
+input[type="button"].button-text:focus,
+button.button-text {
+  background-color: none;
+  box-shadow: none;
+  padding: 18px 15px;
+  color: #a5c4c2;
+}
+
+.button.button-text:hover, input[type="submit"].button-text:hover,
+input[type="reset"].button-text:hover,
+input[type="button"].button-text:hover, .button.button-text:focus, input[type="submit"].button-text:focus,
+input[type="reset"].button-text:focus,
+input[type="button"].button-text:focus,
+button.button-text:hover,
+button.button-text:focus {
+  color: #689b98;
+}

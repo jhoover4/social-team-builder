@@ -1,0 +1,124 @@
+textarea {
+  padding: 15px;
+  border: 1px solid #c4d8d7;
+  box-shadow: none;
+  box-sizing: border-box;
+  min-height: 200px;
+  width: 100%;
+  font-size: 1.6rem;
+  line-height: 1.8;
+  border-radius: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+
+  &:focus {
+    border-color: #689b98;
+  }
+}
+
+input[type="email"], input[type="number"], input[type="search"], input[type="text"], select, input[type="tel"], input[type="url"], input[type="password"] {
+  background: #fff;
+  width: 100%;
+  color: $body-color;
+  border-radius: 8px;
+  border: 1px solid #c4d8d7;
+  padding: 15px;
+  margin-bottom: 15px;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+  font-family: "Work Sans", sans-serif;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+}
+
+input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="text"]:focus, select:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus {
+  border-color: #689b98;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  display: inline;
+}
+
+select {
+  height: 50px;
+  padding: 15px;
+  color: #222;
+  font-weight: bold;
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+  appearance: menulist;
+
+  &:focus {
+    border-color: #689b98;
+  }
+}
+
+.circle--select {
+  position: relative;
+  width: 100%;
+  border-sizing: border-box;
+  border: 1px solid #c4d8d7;
+  height: 50px;
+  border-radius: 8px;
+  box-sizing: border-box;
+
+  select {
+    padding: 10px 15px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    border: 0;
+    background: transparent;
+    outline: none;
+    box-sizing: border-box;
+    height: 48px;
+    margin: 0;
+    -webkit-appearance: none;
+    -none-appearance: none;
+  }
+
+  &.focus {
+    border-color: #689b98;
+  }
+
+  .chevron {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    height: 14px;
+    margin-top: -7px;
+    fill: #689b98;
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+
+label,
+legend {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #222;
+  font-family: "Work Sans", sans-serif;
+}
+
+fieldset {
+  padding: 0;
+  border-width: 0;
+}
+
+label > .label-body {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-weight: normal;
+}

@@ -1,0 +1,23 @@
+// $headers
+// $gutter-width
+// $link
+
+$border-color: #e1e1e1;
+$header-color: #537d7b;
+$body-color: #666;
+$positive: #54b26c;
+$negative: #ed5a5a;
+
+$base-font: sans-serif;
+$display-font: "Work Sans", $base-font;
+$body-font: "Cousine";
+$code-font: monospace, monospace;
+$type-font: Menlo, Consolas, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, monospace;
+
+$inputs-list: 'input[type="email"]',
+              'input[type="number"]',
+              'input[type="password"]',
+              'input[type="search"]',
+              'input[type="tel"]',
+              'input[type="text"]',
+              'input[type="url"]'
