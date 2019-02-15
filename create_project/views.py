@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import ProjectForm, ProjectFormSet
-from .models import Project
+from .models import Project, ProjectApplicant
 
 
 class ProjectDetailView(DetailView):
@@ -101,3 +102,20 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 class ProjectDeleteView(DeleteView):
     model = Project
     success_url = reverse_lazy('index')
+
+
+class ApplicantStatusUpdateView(UpdateView):
+    """This view will only work with AJAX requests."""
+
+    model = ProjectApplicant
+    fields = ['status']
+    http_method_names = ['post']
+    success_url = '/'
+
+    def render_to_response(self, context, **response_kwargs):
+        """Allow AJAX requests to be handled more gracefully """
+
+        if self.request.is_ajax():
+            return JsonResponse('Success', safe=False, **response_kwargs)
+        else:
+            return JsonResponse('Request must be valid JSON.', status=400)

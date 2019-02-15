@@ -75,9 +75,77 @@ $(document).ready(function () {
 
     var $tooltips = $("form .tooltip");
     if (screen.width < 640) {
-        $tooltips.attr('data-direction', 'bottom');
+        $tooltips.attr("data-direction", "bottom");
         $tooltips.parent().click(function (e) {
             e.preventDefault();
         })
     }
+
+    const updateApplicantStatus = (function () {
+        const $projectApplicantWidgets = $(".circle--ajax--applicant-status");
+
+        const init = () => {
+            bindUIActions();
+        };
+
+        const bindUIActions = () => {
+            $projectApplicantWidgets.children("span").click(function (e) {
+                let widget = $(this).parent();
+                hideShowWidget(widget);
+            });
+
+            $projectApplicantWidgets.children("select").change(function (e) {
+                e.preventDefault();
+
+                let widget = $(this).parent();
+                let jsonData = updateApplicantWidget(widget);
+
+                ajaxCall(jsonData);
+                hideShowWidget(widget);
+            });
+        };
+
+        const ajaxCall = function (jsonData) {
+            const csrftoken = Cookies.get("csrftoken");
+            const link = "/project/applicant-status/" + jsonData["id"];
+
+            $.ajax({
+                url: link,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+                method: "post",
+                data: jsonData
+            }).done(function () {
+                console.log(`Ajax call to ${link} was successful.`);
+            }).fail(function () {
+                console.log(`Ajax call to ${link} unsuccessful.`);
+            });
+        };
+
+        const hideShowWidget = (widget) => {
+            let $select = widget.children("select");
+            let $span = widget.children("span");
+
+            $select.toggle();
+            $span.toggle();
+        };
+
+        const updateApplicantWidget = (widget) => {
+            let $select = widget.children("select");
+            let $span = widget.children("span");
+            let $chosenValue = $select.find(":selected");
+
+            $span.text($chosenValue.text());
+            $select.data("status", $chosenValue.val());
+
+            return $select.data()
+        };
+
+        return {
+            'widgets': $projectApplicantWidgets,
+            'init': init
+        }
+    })();
+    updateApplicantStatus.init();
 });

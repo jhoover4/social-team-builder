@@ -253,3 +253,15 @@ input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, i
   margin: 0 1em 1em 1em;
 }
 
+
+.circle--ajax--applicant-status {
+  select {
+    display: none;
+  }
+
+  .initial-status {
+    color: #689b98;
+    font-weight: 800;
+  }
+}
+

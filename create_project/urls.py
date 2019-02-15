@@ -16,7 +16,8 @@ Including another URLconf
 from django.urls import path
 from django.views.generic import TemplateView
 
-from .views import ProjectDetailView, ProjectCreateView, ProjectDeleteView, ProjectUpdateView
+from .views import ProjectDetailView, ProjectCreateView, ProjectDeleteView, ProjectUpdateView, \
+    ApplicantStatusUpdateView
 
 urlpatterns = [
     path('new', ProjectCreateView.as_view(), name='new'),
@@ -24,4 +25,6 @@ urlpatterns = [
     path('<int:pk>/edit', ProjectUpdateView.as_view(), name='edit'),
     path('<int:pk>/delete', ProjectDeleteView.as_view(), name='delete'),
     path('<int:project_id>/applications', TemplateView.as_view(template_name='applications.html'), name='applications'),
+    path('applicant-status/<int:pk>', ApplicantStatusUpdateView.as_view(success_url="/"),
+         name='applicant_status'),
 ]

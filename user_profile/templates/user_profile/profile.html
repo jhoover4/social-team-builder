@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load custom_tags %}
 
 {% block content %}
     <div class="circle--actions--bar">
@@ -18,12 +19,7 @@
             </div>
             {% if current_profile.pk == user.pk %}
                 <div class="circle--fluid--cell circle--fluid--secondary">
-                    <a class="button icon-on-left" href="profile_edit.html">Edit</a>
-                </div>
-            {% elif current_profile_applications %}
-                <div class="circle--fluid--cell circle--fluid--secondary">
-                    <a class="button icon-on-left" href="{% url 'create_project:edit' pk=1 %}">Add to
-                        Project</a>
+                    <a class="button icon-on-left" href="{% url 'profiles:edit' %}">Edit</a>
                 </div>
             {% endif %}
         </div>
@@ -71,7 +67,7 @@
                                 <h3>{{ application.position.project.name }}</h3>
                             </td>
                             <td class="circle--cell--right">
-                                <span class="secondary-label">{{ application.get_status_display }}</span>
+                                {% applicant_status_select current_status=application.get_status_display applicant_pk=application.pk %}
                             </td>
                         </tr>
                     {% endfor %}
