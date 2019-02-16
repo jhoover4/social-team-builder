@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils import timezone
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
@@ -64,3 +65,13 @@ class ProjectApplicant(models.Model):
     position = models.ForeignKey('ProjectPosition', on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True)
     time_on_project = models.IntegerField(default=0)
+
+    @staticmethod
+    def post_save(sender, **kwargs):
+        instance = kwargs.get('instance')
+        if instance.status == 'a':
+            project_position = instance.position
+            project_position.filled = True
+
+
+post_save.connect(ProjectApplicant.post_save, sender=ProjectApplicant)

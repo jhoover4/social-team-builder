@@ -3,8 +3,8 @@ from django.urls import reverse
 
 from create_project.models import Project, ProjectApplicant, ProjectPosition
 from user_profile.models import CustomUser
-from .forms import ProjectForm, ProjectFormSet
 from user_profile.models import Skill
+from .forms import ProjectForm, ProjectFormSet
 
 
 class ProjectTestCase(TestCase):
@@ -173,3 +173,16 @@ class ProjectApplicantTestCase(TestCase):
         resp = self.client.post(reverse('create_project:applicant_status', kwargs={'pk': self.project_applicant.id}),
                                 data)
         self.assertEqual(resp.status_code, 200)
+
+    def test_project_applicant_post_save(self):
+        """
+        When project applicant is saved and the status has been changed to 'accepted', the project position should be
+        marked as filled.
+        """
+
+        self.project_position.filled = False
+
+        self.project_applicant.status = 'a'
+        self.project_applicant.save()
+
+        self.assertTrue(self.project_position.filled)
