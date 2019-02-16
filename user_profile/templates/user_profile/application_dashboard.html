@@ -71,16 +71,18 @@
                 </thead>
                 <tbody>
                 {% for applicant in applications %}
-                    <tr class="clickable-row" data-href="{% url 'profiles:root' applicant.user.pk %}">
-                        <td>
-                            <h3>{{ applicant.user.first_name }} {{ applicant.user.last_name }}</h3>
-                            <p>{{ applicant.position.project.name }}</p>
+                    <tr>
+                        <td class="circle--link--list">
+                            <a href="{% url 'profiles:root' applicant.user.pk %}" target="_blank">
+                                <h3>{{ applicant.user.first_name }} {{ applicant.user.last_name }}</h3>
+                                <p>{{ applicant.position.project.name }}</p>
+                            </a>
                         </td>
                         <td class="circle--cell--right">
                             <span class="secondary-label">{{ applicant.position }}</span>
                         </td>
                         <td class="circle--cell--right">
-                            <span class="secondary-label">{{ applicant.get_status_display }}</span>
+                            {% applicant_status_select current_status=applicant.get_status_display applicant_pk=applicant.pk %}
                         </td>
                     </tr>
                 {% endfor %}

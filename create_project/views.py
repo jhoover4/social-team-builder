@@ -1,5 +1,7 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
@@ -111,6 +113,9 @@ class ApplicantStatusUpdateView(UpdateView):
     fields = ['status']
     http_method_names = ['post']
     success_url = '/'
+
+    def form_valid(self, form):
+        return HttpResponse(json.dumps(form.data), content_type='application/json')
 
     def render_to_response(self, context, **response_kwargs):
         """Allow AJAX requests to be handled more gracefully """

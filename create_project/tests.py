@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from create_project.models import Project
+from create_project.models import Project, ProjectApplicant, ProjectPosition
 from user_profile.models import CustomUser
 from .forms import ProjectForm, ProjectFormSet
 from user_profile.models import Skill
@@ -148,4 +148,28 @@ class ProjectTestCase(TestCase):
                      }
 
         resp = self.client.post(reverse('create_project:new'), form_data)
+        self.assertEqual(resp.status_code, 200)
+
+
+class ProjectApplicantTestCase(TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.get(pk=2)
+        self.project_position = ProjectPosition.objects.get(pk=1)
+        self.project_applicant = ProjectApplicant.objects.create(user=self.user,
+                                                                 position=self.project_position,
+                                                                 status='p'
+                                                                 )
+
+    def test_applicant_status_update_view(self):
+        """
+        Should update applicant status with POST request.
+        """
+
+        data = {
+            'id': self.project_applicant.id,
+            'status': 'r'
+        }
+
+        resp = self.client.post(reverse('create_project:applicant_status', kwargs={'pk': self.project_applicant.id}),
+                                data)
         self.assertEqual(resp.status_code, 200)
