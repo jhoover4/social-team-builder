@@ -1,3 +1,5 @@
+import json
+
 from django.test import TestCase
 from django.urls import reverse
 
@@ -9,19 +11,11 @@ from .forms import ProjectForm, ProjectFormSet
 
 class ProjectTestCase(TestCase):
     def setUp(self):
-        self.test_user = CustomUser.objects.create(
-            first_name='Jordan',
-            last_name='Hoover',
-            email='jordan@hoovermld.com'
-        )
-        self.test_project = Project.objects.create(
-            owner=self.test_user,
-            name='Currency Calculator',
-            description='test',
-            time_involvement=60,
-            applicant_requirements='Applicants are required to work from our headquarters located in Antarctica.'
-        )
-        self.skill = Skill.objects.create(name='Python')
+        self.test_user = CustomUser.objects.get(pk=1)
+        self.test_project = Project.objects.get(pk=1)
+        self.skill = Skill.objects.get(pk=1)
+
+        self.client.login(email=self.test_user.email, password='&Oa0sMqvXJT0')
 
     def test_project_detail_view(self):
         """
@@ -45,7 +39,7 @@ class ProjectTestCase(TestCase):
             reverse('create_project:root', kwargs={'pk': self.test_project.pk})
         )
 
-        self.assertEqual(1, resp.context['project'].time_involvement_hours)
+        self.assertEqual(10, resp.context['project'].time_involvement_hours)
 
     def test_project_detail_view_time_involvement_conversion_float(self):
         """
@@ -81,7 +75,7 @@ class ProjectTestCase(TestCase):
         """
 
         resp = self.client.get(reverse('create_project:edit', kwargs={'pk': self.test_project.pk}))
-        self.assertTemplateUsed(resp, 'project_edit.html')
+        self.assertTemplateUsed(resp, 'project_create_edit.html')
 
     def test_project_form(self):
         """
@@ -128,39 +122,48 @@ class ProjectTestCase(TestCase):
         self.assertTrue(formset.is_valid())
 
     def test_edit_project_view_post(self):
+        """
+        Post to create a new project should return a redirect and create a new object.
+        """
+
         form_data = {'name': 'test',
                      'description': 'test',
                      'time_involvement': '65',
                      'applicant_requirements': 'test',
 
                      # Management form data
-                     'projectposition-INITIAL_FORMS': '0',
-                     'projectposition-TOTAL_FORMS': '2',
-                     'projectposition-MAX_NUM_FORMS': '',
+                     'projectposition_set-INITIAL_FORMS': '0',
+                     'projectposition_set-TOTAL_FORMS': '2',
+                     'projectposition_set-MAX_NUM_FORMS': '',
 
                      # First position data
-                     'projectposition-0-title': 'Test',
-                     'projectposition-0-description': 'test description',
+                     'projectposition_set-0-title': 'Test',
+                     'projectposition_set-0-description': 'test description',
 
                      # Second position data
-                     'projectposition-1-title': 'Test2',
-                     'projectposition-1-description': 'test2 description',
+                     'projectposition_set-1-title': 'Test2',
+                     'projectposition_set-1-description': 'test2 description',
                      }
 
         resp = self.client.post(reverse('create_project:new'), form_data)
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 302)
+
+        new_project = Project.objects.latest('pk')
+        self.assertEqual('test', new_project.name)
 
 
 class ProjectApplicantTestCase(TestCase):
     def setUp(self):
-        self.user = CustomUser.objects.get(pk=2)
+        self.test_user = CustomUser.objects.get(pk=2)
         self.project_position = ProjectPosition.objects.get(pk=1)
-        self.project_applicant = ProjectApplicant.objects.create(user=self.user,
+        self.project_applicant = ProjectApplicant.objects.create(user=self.test_user,
                                                                  position=self.project_position,
                                                                  status='p'
                                                                  )
 
-    def test_applicant_status_update_view(self):
+        self.client.login(email=self.test_user.email, password='&Oa0sMqvXJT0')
+
+    def test_status_update_view(self):
         """
         Should update applicant status with POST request.
         """
@@ -173,8 +176,50 @@ class ProjectApplicantTestCase(TestCase):
         resp = self.client.post(reverse('create_project:applicant_status', kwargs={'pk': self.project_applicant.id}),
                                 data)
         self.assertEqual(resp.status_code, 200)
+        self.assertTrue(resp.json)
 
-    def test_project_applicant_post_save(self):
+    def test_status_update_valid_ajax_response(self):
+        """
+        Updateview should return valid json.
+        """
+
+        data = json.dumps({
+            'id': self.project_applicant.id,
+            'status': 'r'
+        })
+
+        resp = self.client.post(
+            reverse('create_project:applicant_status', kwargs={'pk': self.project_applicant.id}),
+            content_type='application/json',
+            data=data,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(
+            'Success',
+            resp.json()
+        )
+
+    def test_status_update_view_invalid_ajax_response(self):
+        """
+        Updateview should return valid json and 400 response if AJAX POST invalid.
+        """
+
+        data = json.dumps({
+            'id': self.project_applicant.id,
+            'status': 'r'
+        })
+
+        resp = self.client.post(
+            reverse('create_project:applicant_status', kwargs={'pk': self.project_applicant.id}),
+            content_type='application/json',
+            data=data,
+        )
+        self.assertEqual(
+            'Request must be AJAX.',
+            resp.json()
+        )
+
+    def test_post_save(self):
         """
         When project applicant is saved and the status has been changed to 'accepted', the project position should be
         marked as filled.

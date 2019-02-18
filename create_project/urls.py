@@ -25,6 +25,6 @@ urlpatterns = [
     path('<int:pk>/edit', ProjectUpdateView.as_view(), name='edit'),
     path('<int:pk>/delete', ProjectDeleteView.as_view(), name='delete'),
     path('<int:project_id>/applications', TemplateView.as_view(template_name='applications.html'), name='applications'),
-    path('applicant-status/<int:pk>', ApplicantStatusUpdateView.as_view(success_url="/"),
+    path('applicant-status/<int:pk>', ApplicantStatusUpdateView.as_view(),
          name='applicant_status'),
 ]

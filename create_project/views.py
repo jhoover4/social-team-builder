@@ -101,18 +101,17 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
     success_url = reverse_lazy('index')
 
 
-class ApplicantStatusUpdateView(UpdateView):
+class ApplicantStatusUpdateView(LoginRequiredMixin, UpdateView):
     """This view will only work with AJAX requests."""
 
     model = ProjectApplicant
     fields = ['status']
     http_method_names = ['post']
-    success_url = '/'
 
     def form_valid(self, form):
         return HttpResponse(json.dumps(form.data), content_type='application/json')
@@ -123,4 +122,4 @@ class ApplicantStatusUpdateView(UpdateView):
         if self.request.is_ajax():
             return JsonResponse('Success', safe=False, **response_kwargs)
         else:
-            return JsonResponse('Request must be valid JSON.', status=400)
+            return JsonResponse('Request must be AJAX.', safe=False, status=400)
