@@ -17,7 +17,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from .views import ProjectDetailView, ProjectCreateView, ProjectDeleteView, ProjectUpdateView, \
-    ApplicantStatusUpdateView
+    ApplicantCreateView, ApplicantDeleteView, ApplicantStatusUpdateView
 
 urlpatterns = [
     path('new', ProjectCreateView.as_view(), name='new'),
@@ -25,6 +25,10 @@ urlpatterns = [
     path('<int:pk>/edit', ProjectUpdateView.as_view(), name='edit'),
     path('<int:pk>/delete', ProjectDeleteView.as_view(), name='delete'),
     path('<int:project_id>/applications', TemplateView.as_view(template_name='applications.html'), name='applications'),
-    path('applicant-status/<int:pk>', ApplicantStatusUpdateView.as_view(),
+    path('applicant', ApplicantCreateView.as_view(),
+         name='applicant_create'),
+    path('applicant/<int:pk>/delete', ApplicantDeleteView.as_view(),
+         name='applicant_delete'),
+    path('applicant/<int:pk>/status', ApplicantStatusUpdateView.as_view(),
          name='applicant_status'),
 ]

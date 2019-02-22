@@ -63,7 +63,7 @@ class ProjectApplicant(models.Model):
         on_delete=models.CASCADE,
     )
     position = models.ForeignKey('ProjectPosition', on_delete=models.CASCADE)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='p')
     time_on_project = models.IntegerField(default=0)
 
     @staticmethod
@@ -72,6 +72,9 @@ class ProjectApplicant(models.Model):
         if instance.status == 'a':
             project_position = instance.position
             project_position.filled = True
+
+    def __str__(self):
+        return self.user.email + ":" + self.position.name
 
 
 post_save.connect(ProjectApplicant.post_save, sender=ProjectApplicant)

@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import OuterRef, Subquery
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.urls import reverse_lazy
@@ -8,7 +9,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import ProjectForm, ProjectFormSet
-from .models import Project, ProjectApplicant
+from .models import Project, ProjectPosition, ProjectApplicant
 
 
 class ProjectDetailView(DetailView):
@@ -18,8 +19,18 @@ class ProjectDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        project_time_involvement_hours = round(context['project'].time_involvement / 60, 1)
 
+        user = self.request.user
+        try:
+            user_applied_projects = ProjectApplicant.objects.filter(position=OuterRef('pk'), user=user)
+            project_positions = ProjectPosition.objects.filter(project__id=self.object.id).annotate(
+                user_applied=Subquery(user_applied_projects.values('id')))
+        except ProjectApplicant.DoesNotExist:
+            project_positions = None
+
+        context['project_positions'] = project_positions
+
+        project_time_involvement_hours = round(context['project'].time_involvement / 60, 1)
         if float(project_time_involvement_hours).is_integer():
             context['project'].time_involvement_hours = int(project_time_involvement_hours)
         else:
@@ -106,20 +117,46 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('index')
 
 
-class ApplicantStatusUpdateView(LoginRequiredMixin, UpdateView):
+class AjaxResponseMixin:
+
+    def form_invalid(self, form):
+        if self.request.is_ajax():
+            return JsonResponse(form.errors, status=400)
+        else:
+            return JsonResponse('Request must be AJAX.', safe=False, status=400)
+
+    def form_valid(self, form):
+        if self.request.is_ajax():
+            self.object = form.save()
+            data = {
+                'pk': self.object.pk,
+            }
+            return HttpResponse(json.dumps(data), status=200, content_type='application/json')
+        else:
+            return JsonResponse('Request must be AJAX.', safe=False, status=400)
+
+
+class ApplicantCreateView(LoginRequiredMixin, AjaxResponseMixin, CreateView):
+    """This view will only work with AJAX requests."""
+
+    model = ProjectApplicant
+    fields = ['user', 'position']
+    http_method_names = ['post']
+
+
+class ApplicantDeleteView(LoginRequiredMixin, AjaxResponseMixin, DeleteView):
+    """This view will only work with AJAX requests."""
+
+    model = ProjectApplicant
+
+    def delete(self, request, *args, **kwargs):
+        self.get_object().delete()
+        return HttpResponse(status=204, content_type='application/json')
+
+
+class ApplicantStatusUpdateView(LoginRequiredMixin, AjaxResponseMixin, UpdateView):
     """This view will only work with AJAX requests."""
 
     model = ProjectApplicant
     fields = ['status']
     http_method_names = ['post']
-
-    def form_valid(self, form):
-        return HttpResponse(json.dumps(form.data), content_type='application/json')
-
-    def render_to_response(self, context, **response_kwargs):
-        """Allow AJAX requests to be handled more gracefully """
-
-        if self.request.is_ajax():
-            return JsonResponse('Success', safe=False, **response_kwargs)
-        else:
-            return JsonResponse('Request must be AJAX.', safe=False, status=400)

@@ -81,45 +81,62 @@ $(document).ready(function () {
         })
     }
 
-    const updateApplicantStatus = (function () {
-        const $projectApplicantWidgets = $(".circle--ajax--applicant-status");
+    const projectApplications = (function () {
+        const $statusWidgets = $(".circle--ajax--applicant-status");
 
         const init = () => {
             bindUIActions();
         };
 
         const bindUIActions = () => {
-            $projectApplicantWidgets.children("span").click(function (e) {
+            $statusWidgets.children("span").click(function (e) {
                 let widget = $(this).parent();
                 hideShowWidget(widget);
             });
 
-            $projectApplicantWidgets.children("select").change(function (e) {
+            $statusWidgets.children("select").change(function (e) {
                 e.preventDefault();
 
                 let widget = $(this).parent();
                 let jsonData = updateApplicantWidget(widget);
+                const link = `/project/applicant/${jsonData["id"]}/status`;
 
-                ajaxCall(jsonData);
-                hideShowWidget(widget);
+                ajaxCall(jsonData, link).then(() => {
+                        hideShowWidget(widget);
+                    }
+                ).catch(err => console.log(err));
+            });
+
+            $(".circle--ajax--applicant-create, .circle--ajax--applicant-delete").on("click", function (e) {
+                e.preventDefault();
+
+                let widget = $(this);
+
+                if (widget.hasClass("circle--ajax--applicant-create")) {
+                    createApplicantWidget(widget);
+                } else if (widget.hasClass("circle--ajax--applicant-delete")) {
+                    deleteApplicantWidget(widget);
+                }
             });
         };
 
-        const ajaxCall = function (jsonData) {
+        const ajaxCall = function (jsonData, link) {
             const csrftoken = Cookies.get("csrftoken");
-            const link = "/project/applicant-status/" + jsonData["id"];
-
-            $.ajax({
-                url: link,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                },
-                method: "post",
-                data: jsonData
-            }).done(function () {
-                console.log(`Ajax call to ${link} was successful.`);
-            }).fail(function () {
-                console.log(`Ajax call to ${link} unsuccessful.`);
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: link,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    },
+                    method: "post",
+                    data: jsonData,
+                    success: function (jsonResponse) {
+                        resolve(jsonResponse);
+                    },
+                    error: function (err) {
+                        reject(`Ajax call to ${link} unsuccessful: ${err.statusText}`);
+                    }
+                });
             });
         };
 
@@ -142,10 +159,39 @@ $(document).ready(function () {
             return $select.data()
         };
 
+        const createApplicantWidget = (widget) => {
+
+
+            let applicationId = ajaxCall(widget.data(), widget.attr("href"))
+                .then(response => {
+                        widget.text("You've Applied");
+                        widget.removeClass("circle--ajax--applicant-create");
+                        widget.addClass("button-inactive");
+                        widget.addClass("circle--ajax--applicant-delete");
+
+                        widget.attr("href", `/project/applicant/${response.pk}/delete`);
+                    }
+                )
+                .catch(err => console.log(err));
+        };
+
+        const deleteApplicantWidget = (widget) => {
+            ajaxCall(widget.data(), widget.attr("href"))
+                .then(response => {
+                    widget.text("Apply");
+                    widget.removeClass("button-inactive");
+                    widget.removeClass("circle--ajax--applicant-delete");
+                    widget.addClass("circle--ajax--applicant-create");
+
+                    widget.attr("href", "/project/applicant");
+                })
+                .catch(err => console.log(err));
+        };
+
         return {
-            'widgets': $projectApplicantWidgets,
+            'statusWidgets': $statusWidgets,
             'init': init
         }
     })();
-    updateApplicantStatus.init();
+    projectApplications.init();
 });

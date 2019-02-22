@@ -31,16 +31,24 @@
                 <h2>Positions</h2>
 
                 <ul class="circle--group--list">
-                    {% for position in project.projectposition_set.all %}
+                    {% for position in project_positions %}
                         <li>
                             <h3>{{ position.name }}</h3>
                             <div class="markdownx-preview">
                                 <p>{{ position.description_formatted_markdown|safe }}</p>
                             </div>
-                            {% if position.filled %}
-                                <a class="button button-primary button-inactive">Position Filled</a>
+                                {% if position.user_applied %}
+                                <a class="button button-primary button-inactive circle--ajax--applicant-delete"
+                                   href="{% url 'project:applicant_delete' pk=position.user_applied %}"
+                                   data-id="{{ position.user_applied }}">You've Applied</a>
                             {% else %}
-                                <a class="button button-primary">Apply</a>
+                                {% if position.filled %}
+                                    <button class="button button-primary button-inactive">Position Filled</button>
+                                {% else %}
+                                    <a class="button button-primary circle--ajax--applicant-create"
+                                       href="{% url 'project:applicant_create' %}"
+                                       data-user="{{ user.id }}" data-position="{{ position.id }}">Apply</a>
+                                {% endif %}
                             {% endif %}
                         </li>
                     {% endfor %}
