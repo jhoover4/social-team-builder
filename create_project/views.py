@@ -24,7 +24,7 @@ class ProjectDetailView(DetailView):
         try:
             user_applied_projects = ProjectApplicant.objects.filter(position=OuterRef('pk'), user=user)
             project_positions = ProjectPosition.objects.filter(project__id=self.object.id).annotate(
-                user_applied=Subquery(user_applied_projects.values('id')))
+                user_applied=Subquery(user_applied_projects.values('id'))).order_by('pk')
         except ProjectApplicant.DoesNotExist:
             project_positions = None
 
