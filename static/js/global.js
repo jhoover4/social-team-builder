@@ -12,7 +12,6 @@ $(document).ready(function () {
     };
 
     const updateFormSetAttr = (form, count) => {
-        // form.find("input, textarea, select").attr("id", `projectposition_set-${count - 1}-name`);
         form.find("input, textarea, select").attr("id", function (i, name) {
             return name.replace(/\d+/, count - 1);
         });
@@ -35,9 +34,9 @@ $(document).ready(function () {
 
     $circleCloneList.on("click", "li:not(:only-child) .circle--clone--remove", function () {
         var parent = $(this).parent("li");
-        parent.remove();
+        parent.hide();
 
-        updateDjangoCounter(-1);
+        $(this).children("input").prop("checked", true);
     });
 
     // Adds class to selected item

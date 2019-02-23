@@ -39,10 +39,8 @@ class ProjectDetailView(DetailView):
         return context
 
 
-class ProjectCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'project_create_edit.html'
-    form_class = ProjectForm
-    login_url = '/profiles/login'
+class ProjectPositionInlineFormsetMixin:
+    """Mixin to overwrite CBVs for project position inline formset use."""
 
     def get_success_url(self):
         return reverse_lazy('create_project:root', kwargs={'pk': self.object.pk})
@@ -65,24 +63,31 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
             self.object = form.save()
 
             if project_positions_form.is_valid():
-                formset = project_positions_form.save(commit=False)
-                for position_form in formset:
-                    position_form.project = self.object
-                    position_form.save()
                 project_positions_form.save()
-                project_positions_form.save_m2m()
 
         return HttpResponseRedirect(self.get_success_url())
 
 
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+class ProjectCreateView(LoginRequiredMixin, ProjectPositionInlineFormsetMixin, CreateView):
     model = Project
     template_name = 'project_create_edit.html'
     form_class = ProjectForm
     login_url = '/profiles/login'
 
-    def get_success_url(self):
-        return reverse_lazy('create_project:root', kwargs={'pk': self.object.pk})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['project_positions_formset'] = ProjectFormSet(self.request.POST)
+        else:
+            context['project_positions_formset'] = ProjectFormSet()
+        return context
+
+
+class ProjectUpdateView(LoginRequiredMixin, ProjectPositionInlineFormsetMixin, UpdateView):
+    model = Project
+    template_name = 'project_create_edit.html'
+    form_class = ProjectForm
+    login_url = '/profiles/login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,25 +97,6 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
             context['project_positions_formset'] = ProjectFormSet(instance=self.object)
         return context
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        project_positions_form = context['project_positions_formset']
-
-        if form.is_valid():
-            form.save(commit=False)
-            form.instance.owner = self.request.user
-            self.object = form.save()
-
-            if project_positions_form.is_valid():
-                formset = project_positions_form.save(commit=False)
-                for position_form in formset:
-                    position_form.project = self.object
-                    position_form.save()
-                project_positions_form.save()
-                project_positions_form.save_m2m()
-
-        return HttpResponseRedirect(self.get_success_url())
-
 
 class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
@@ -118,6 +104,7 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class AjaxResponseMixin:
+    """Mixin to overwrite CBVs for Ajax-only requesting."""
 
     def form_invalid(self, form):
         if self.request.is_ajax():
