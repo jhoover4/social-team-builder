@@ -22,57 +22,61 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     {% load static from staticfiles %}
     {% block static %}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+              integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/global.css' %}">
 
-    <!-- JS
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/autogrow.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/global.js' %}"></script>
+        <!-- JS
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/autogrow.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/global.js' %}"></script>
 
-</head>
-<body>
-<header class="circle--header">
-    <div class="bounds">
-        <div class="circle--fluid">
-            <div class="circle--fluid--cell">
-                <h1 class="hide-text circle--logo"><a class="logo" href="{% url 'index' %}">Circle</a></h1>
-            </div>
-            <div class="circle--fluid--cell circle--fluid--primary">
-                <div class="circle--search">
-                    <input type="text" placeholder="Search Projects..."/>
-                    <button>
-                        <svg version="1.1" class="search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 12 12" xml:space="preserve">
+        </head>
+        <body>
+        <header class="circle--header">
+            <div class="bounds">
+                <div class="circle--fluid">
+                    <div class="circle--fluid--cell">
+                        <h1 class="hide-text circle--logo"><a class="logo" href="{% url 'index' %}">Circle</a></h1>
+                    </div>
+                    <div class="circle--fluid--cell circle--fluid--primary">
+                        <div class="circle--search">
+                            <form method="get" action="{% url 'index' %}">
+                                <input type="text" name="q" placeholder="Search Projects..."/>
+                                <button type="submit">
+                                    <svg version="1.1" class="search" xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 12 12"
+                                         xml:space="preserve">
                 <path d="M12,10.6L8.3,6.9C8.7,6.2,9,5.4,9,4.5C9,2,7,0,4.5,0S0,2,0,4.5S2,9,4.5,9c0.9,0,1.7-0.3,2.4-0.7l3.7,3.7L12,10.6z M2,4.5
                 C2,3.1,3.1,2,4.5,2S7,3.1,7,4.5C7,5.9,5.9,7,4.5,7S2,5.9,2,4.5z"/>
               </svg>
-                    </button>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="circle--fluid--cell circle--fluid--secondary">
+                        <nav>
+                            <ul class="circle--inline">
+                                {% if user.is_authenticated %}
+                                    <li><a href="{% url 'profiles:root' profile_id=user.id %}">View Profile</a></li>
+                                    <li><a href="{% url 'profiles:logout' %}">Logout</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'profiles:sign_up' %}">Sign Up</a></li>
+                                    <li><a href="{% url 'profiles:login' %}">Sign In</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
-            <div class="circle--fluid--cell circle--fluid--secondary">
-                <nav>
-                    <ul class="circle--inline">
-                        {% if user.is_authenticated %}
-                            <li><a href="{% url 'profiles:root' profile_id=user.id %}">View Profile</a></li>
-                            <li><a href="{% url 'profiles:logout' %}">Logout</a></li>
-                        {% else %}
-                            <li><a href="{% url 'profiles:sign_up' %}">Sign Up</a></li>
-                            <li><a href="{% url 'profiles:login' %}">Sign In</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-</header>
-{% block content %}
-{% endblock %}
-{% endblock static %}
-{% block extra_js %}
-{% endblock extra_js %}
-</body>
+        </header>
+        {% block content %}
+        {% endblock %}
+    {% endblock static %}
+    {% block extra_js %}
+    {% endblock extra_js %}
+    </body>
 </html>

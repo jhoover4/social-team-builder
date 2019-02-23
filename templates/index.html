@@ -30,7 +30,7 @@
                     <li><a {% if searched_position == None %}class="selected"{% endif %} href="{% url_del_attr request 'position' %}">All Needs</a></li>
                     {% for position in available_positions %}
                         <li><a {% if searched_position == position.name %}class="selected"{% endif %}
-                               href="{% url_add_replace_attr request 'position' position.name %}">{{ position.name }}</a>
+                               href="{% url 'index' %}?position={{ position.name|urlencode }}">{{ position.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
