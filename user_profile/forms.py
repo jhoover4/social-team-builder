@@ -1,6 +1,8 @@
 from django import forms
+from django.contrib.auth.forms import UserChangeForm
+from django.forms import Textarea, TextInput
 
-from .models import CustomUser, Profile
+from .models import CustomUser, Profile, Skill
 
 
 class SignUpForm(forms.ModelForm):
@@ -33,4 +35,19 @@ class SignUpForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('position', 'about_me')
+        # fields = ('position', 'avatar', 'about_me')
+
+        widgets = {
+            'position': TextInput(attrs={'placeholder': 'Position', 'class': 'circle--input--h2'}),
+        }
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ('first_name', 'last_name')
+        widgets = {
+            'first_name': TextInput(attrs={'placeholder': 'First Name', 'class': 'circle--input--h1'}),
+            'last_name': TextInput(attrs={'placeholder': 'Last Name', 'class': 'circle--input--h1'}),
+        }

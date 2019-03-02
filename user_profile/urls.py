@@ -14,9 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import include
-from django.contrib.auth import views as auth_views
 from django.urls import path
-from django.views.generic import TemplateView
 
 from . import views
 
@@ -25,6 +23,6 @@ urlpatterns = [
     path('profile-redirect', views.profile_redirect, name='profile_redirect'),
     path('<int:profile_id>', views.view_profile, name='root'),
     path('<int:profile_id>/dashboard', views.view_dashboard, name='user_dashboard'),
-    path('edit/<int:profile_id>', TemplateView.as_view(template_name='user_profile/profile_edit.html'), name='edit'),
+    path('edit', views.edit_profile, name='edit'),
     path('sign-up/', views.sign_up, name='sign_up'),
 ]

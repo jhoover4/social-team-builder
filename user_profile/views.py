@@ -2,13 +2,14 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
 from create_project.models import Project, ProjectApplicant, ProjectPosition
-from .forms import SignUpForm, ProfileForm
-from .models import CustomUser
+from .forms import SignUpForm, ProfileForm, CustomUserChangeForm
+from .models import CustomUser, Skill
 
 
 def sign_up(request):
@@ -35,20 +36,70 @@ def profile_redirect(request):
     return HttpResponseRedirect(reverse('profiles:root', kwargs={'profile_id': request.user.id}))
 
 
+def get_all_user_positions(profile):
+    try:
+        all_positions = ProjectApplicant.objects.select_related('position').filter(
+            Q(user=profile))
+    except ProjectApplicant.DoesNotExist:
+        all_positions = None
+
+    return all_positions
+
+
 @login_required
 def edit_profile(request):
-    bio_form = ProfileForm()
+    user = request.user
+    SkillFormSet = modelformset_factory(Skill, fields=('name',), can_delete=True)
+
+    all_positions = get_all_user_positions(user)
+
+    if all_positions:
+        current_positions = all_positions.filter(Q(status='a')).values(
+            'position__project__name')
+        applications = all_positions.exclude(status='a').values(
+            'position__project__pk', 'position__project__name'
+        )
+    else:
+        current_positions = None
+        applications = None
+
     if request.method == 'POST':
-        bio_form = ProfileForm(data=request.POST)
-        if bio_form.is_valid():
+        form = CustomUserChangeForm(data=request.POST, instance=user)
+        bio_form = ProfileForm(data=request.POST, instance=user.profile)
+        skill_formset = SkillFormSet(data=request.POST, queryset=Skill.objects.filter(profile=user.profile))
+
+        bio_form.user = user
+
+        if form.is_valid() and bio_form.is_valid():
+            form.save()
+            bio_form.save(commit=False)
+            bio_form.instance.user = user
+
+            if skill_formset.is_valid():
+                formset = skill_formset.save(commit=False)
+                for skill_form in formset:
+                    skill_form.save()
+                    bio_form.instance.skills.add(skill_form)
+                skill_formset.save()
             bio_form.save()
             messages.success(
                 request,
                 "Profile updated."
             )
-            return HttpResponseRedirect(reverse('profiles:profile', kwargs={'profile_id': request.user.id}))
-    return HttpResponseRedirect(
-        reverse('profiles:edit_profile', kwargs={'profile_id': request.user.id, 'bio_form': bio_form}))
+            return HttpResponseRedirect(reverse('profiles:root', kwargs={'profile_id': user.id}))
+
+    else:
+        form = CustomUserChangeForm(instance=user)
+        bio_form = ProfileForm(instance=user.profile)
+        skill_formset = SkillFormSet(queryset=Skill.objects.filter(profile=user.profile))
+
+    return render(request, 'user_profile/profile_edit.html',
+                  {'form': form,
+                   'bio_form': bio_form,
+                   'skill_formset': skill_formset,
+                   'applications': applications,
+                   'current_positions': current_positions}
+                  )
 
 
 def view_profile(request, profile_id):
@@ -58,25 +109,23 @@ def view_profile(request, profile_id):
     If the viewer is the profile owner, they can edit their profile.
     """
 
-    user = request.user
-
     current_profile = CustomUser.objects.get(id=profile_id)
-    profile_applications = None
+    all_positions = get_all_user_positions(current_profile)
 
-    try:
-        past_positions = [application.position for application in
-                          ProjectApplicant.objects.select_related('position').filter(user=current_profile)]
-        profile_applications = ProjectApplicant.objects.filter(
-            Q(user__id=current_profile.id) &
-            Q(position__project__owner=user)
+    if all_positions:
+        current_positions = all_positions.filter(Q(status='a')).values(
+            'position__project__pk', 'position__project__name')
+        applications = all_positions.exclude(status='a').values(
+            'position__project__pk', 'position__project__name', 'position__name', 'status'
         )
-    except ProjectApplicant.DoesNotExist:
-        past_positions = None
+    else:
+        current_positions = None
+        applications = None
 
     return render(request, 'user_profile/profile.html', {
         'current_profile': current_profile,
-        'past_positions': past_positions,
-        'profile_applications': profile_applications,
+        'current_positions': current_positions,
+        'applications': applications,
     })
 
 
