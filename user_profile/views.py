@@ -141,7 +141,7 @@ def view_dashboard(request, profile_id):
     project_query = request.GET.get('project', None)
     job_query = request.GET.get('job', None)
 
-    query = Q()
+    query = Q(position__project__owner=user)
     if status_query:
         query &= Q(status=status_query)
     if project_query:
@@ -149,10 +149,7 @@ def view_dashboard(request, profile_id):
     if job_query:
         query &= Q(position__name__iexact=job_query)
 
-    if query:
-        applications = ProjectApplicant.objects.filter(query).distinct()
-    else:
-        applications = ProjectApplicant.objects.all()
+    applications = ProjectApplicant.objects.filter(query).distinct()
 
     projects = Project.objects.all().values('pk', 'name')
     positions = ProjectPosition.objects.filter(project__pk__in=[project['pk'] for project in projects]).values('name')

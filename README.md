@@ -2,8 +2,7 @@
 
 This is the twelfth and final project in the Treehouse Python tech degree.
 
-Will be hosted on Heroku upon completion. To view locally clone the repo, download the 
-requirements with ```pip install requirements.txt``` and run ```python manage.py runserver```.
+Will be hosted on Heroku upon completion. 
 
 ## Description
 
@@ -15,3 +14,13 @@ a bio, and pick their skills from a list. Users can post a project, too, giving 
 also list the positions they need filled for that job with a brief description of what the position will be responsible 
 for. Users should be able to find a project and ask to join it. If you're a project owner, you can approve or deny the 
 person asking to join.
+
+## Running Locally
+
+To view locally, create a new virtual environment, clone the repo and install the requirements with `pip install -r 
+requirements.txt`.
+
+To create your database, run `python manage.py migrate` and then `python manage.py loaddata initial_data.json` to 
+pre-populate the database.
+
+You can then start the app with `python manage.py runserver`.

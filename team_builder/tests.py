@@ -9,7 +9,7 @@ class TeamBuilderTestCase(TestCase):
     Tests for general application.
     """
 
-    fixtures = ['user_profile_data.json', 'create_project_data.json']
+    fixtures = ['initial_data.json']
 
     def test_index_view(self):
         """

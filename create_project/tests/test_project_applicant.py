@@ -6,6 +6,8 @@ from user_profile.models import CustomUser
 
 
 class ProjectApplicantTestCase(TestCase):
+    fixtures = ['initial_data.json']
+
     def setUp(self):
         self.test_user = CustomUser.objects.get(pk=2)
         self.project_position = ProjectPosition.objects.get(pk=1)

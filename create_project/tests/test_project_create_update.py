@@ -8,6 +8,8 @@ from user_profile.models import Skill
 
 
 class ProjectUpdateCreateTestCase(TestCase):
+    fixtures = ['initial_data.json']
+
     def setUp(self):
         self.test_user = CustomUser.objects.get(pk=1)
         self.test_project = Project.objects.get(pk=1)
@@ -21,7 +23,9 @@ class ProjectUpdateCreateTestCase(TestCase):
         """
 
         resp = self.client.get(reverse('create_project:new'))
+
         self.assertTemplateUsed(resp, 'project_create_edit.html')
+        self.assertEqual(resp.status_code, 200)
 
     def test_edit_project_view(self):
         """
@@ -29,7 +33,9 @@ class ProjectUpdateCreateTestCase(TestCase):
         """
 
         resp = self.client.get(reverse('create_project:edit', kwargs={'pk': self.test_project.pk}))
+
         self.assertTemplateUsed(resp, 'project_create_edit.html')
+        self.assertEqual(resp.status_code, 200)
 
     def test_project_form(self):
         """

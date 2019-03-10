@@ -8,6 +8,8 @@ from user_profile.models import Skill
 
 
 class ProjectDetailTestCase(TestCase):
+    fixtures = ['initial_data.json']
+
     def setUp(self):
         self.test_user = CustomUser.objects.get(pk=1)
         self.test_project = Project.objects.get(pk=1)
