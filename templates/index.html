@@ -27,7 +27,8 @@
             <div class="circle--filter circle--secondary--module">
                 <h4>Project Needs</h4>
                 <ul class="circle--filter--list">
-                    <li><a {% if searched_position == None %}class="selected"{% endif %} href="{% url_del_attr request 'position' %}">All Needs</a></li>
+                    <li><a {% if searched_position == None %}class="selected"{% endif %}
+                           href="{% url_del_attr request 'position' %}">All Needs</a></li>
                     {% for position in available_positions %}
                         <li><a {% if searched_position == position.name %}class="selected"{% endif %}
                                href="{% url 'index' %}?position={{ position.name|urlencode }}">{{ position.name }}</a>
@@ -61,5 +62,18 @@
                 </tbody>
             </table>
         </div>
+
+        {% if user.is_authenticated %}
+            <div class="grid-70 grid-push-5">
+                <h2 id="notifications">Notifications</h2>
+                {% if notifications %}
+                    {% for notification in notifications %}
+                        <li>{{ notification.timestamp }} {{ notification.verb }}</li>
+                    {% endfor %}
+                {% else %}
+                    <p>You have no current notifications.</p>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

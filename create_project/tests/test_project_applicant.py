@@ -108,6 +108,29 @@ class ProjectApplicantTestCase(TestCase):
 
         self.assertTrue(self.project_position.filled)
 
+    def test_post_save_notifications(self):
+        """
+        When project applicant is created, it should created a notification object.
+        This object will be connected with the user.
+        """
+
+        self.assertTrue(hasattr(self.test_user, 'notifications'))
+
+    def test_post_save_multiple_notifications(self):
+        """
+        When project applicant status changes, new notifications are created for the applicant user.
+        This count includes the initial instance creation.
+        """
+
+        self.project_applicant.status = 'r'
+        self.project_applicant.save()
+
+        self.project_applicant.status = 'p'
+        self.project_applicant.save()
+
+        new_notifications = self.test_user.notifications.unread()
+        self.assertEqual(len(new_notifications), 3)
+
     def test_delete(self):
         """
         When project applicant is saved and the status has been changed to 'accepted', the project position should be

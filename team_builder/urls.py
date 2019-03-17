@@ -13,10 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import notifications.urls
+from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include, url
-
 from django.views.generic import TemplateView
 
 from . import settings
@@ -29,11 +29,13 @@ urlpatterns = [
     path('project/', include(('create_project.urls', 'create_project'), namespace='project')),
     path('admin/', admin.site.urls),
     url(r'^markdownx/', include('markdownx.urls')),
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications'))
 ]
 
 if settings.DEBUG:
     # for Django Debug Toolbar
     import debug_toolbar
+
     urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+                      url(r'^__debug__/', include(debug_toolbar.urls)),
+                  ] + urlpatterns

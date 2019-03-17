@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from create_project.models import Project, ProjectPosition
+from create_project.models import Project, ProjectPosition, ProjectApplicant
+from user_profile.models import CustomUser
 
 
 class TeamBuilderTestCase(TestCase):
@@ -77,3 +78,36 @@ class TeamBuilderTestCase(TestCase):
 
         self.assertEqual(len(resp.context['available_projects']), 1)
         self.assertEqual(resp.context['available_projects'][0], projects[0])
+
+    def test_index_search_query(self):
+        """
+        Should have correct context that matches query search parameter.
+        """
+
+        resp = self.client.get(
+            reverse('index'),
+            {'q': 'Currency Calculator'}
+        )
+
+        project = Project.objects.filter(name='Currency Calculator')
+
+        self.assertEqual(resp.context['available_projects'][0], project[0])
+
+    def test_user_notification_data(self):
+        """
+        Should return an index view with correctly filtered project context based on URI query string.
+        """
+
+        test_user = CustomUser.objects.get(pk=2)
+        project_position = ProjectPosition.objects.get(pk=1)
+        ProjectApplicant.objects.create(user=test_user,
+                                        position=project_position,
+                                        status='p'
+                                        )
+
+        self.client.login(email=test_user.email, password='&Oa0sMqvXJT0')
+        resp = self.client.get(
+            reverse('index')
+        )
+
+        self.assertEqual(len(resp.context['notifications']), 1)

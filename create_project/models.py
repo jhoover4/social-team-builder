@@ -3,6 +3,7 @@ from django.db.models.signals import post_save
 from django.utils import timezone
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
+from notifications.signals import notify
 
 from team_builder import settings
 
@@ -72,6 +73,11 @@ class ProjectApplicant(models.Model):
         if instance.status == 'a':
             project_position = instance.position
             project_position.filled = True
+            notify.send(instance, recipient=instance.user, verb="Congrats, you've been rejected for the {} position!".format(instance.position.name))
+        elif instance.status == 'p':
+            notify.send(instance, recipient=instance.user, verb='You applied to the {} position.'.format(instance.position.name))
+        elif instance.status == 'r':
+            notify.send(instance, recipient=instance.user, verb="Sorry, you've been rejected for the {} position.".format(instance.position.name))
 
     def __str__(self):
         return self.user.email + ":" + self.position.name
