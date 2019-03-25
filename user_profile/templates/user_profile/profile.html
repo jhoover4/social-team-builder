@@ -43,13 +43,13 @@
                 {% for application in applications %}
                     <tr>
                         <td>
-                            <h3>{{ application.position__project__name }}</h3>
+                            <h3>{{ application.position.project.name }}</h3>
                         </td>
                         <td class="circle--cell--right">
-                            {{ application.position__name }}
+                            {{ application.position.name }}
                         </td>
                         <td class="circle--cell--right">
-                            {{ application.status }}
+                            {{ application.get_status_display }}
                         </td>
                     </tr>
                 {% endfor %}

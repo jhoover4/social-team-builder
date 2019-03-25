@@ -24,4 +24,3 @@ class UserModelTestCase(TestCase):
 
     def test_project_applicant_repr(self):
         assert self.test_user.email + ':' + self.project_position.name == str(self.project_applicant)
-

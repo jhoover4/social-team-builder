@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, F
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -36,10 +36,10 @@ def profile_redirect(request):
     return HttpResponseRedirect(reverse('profiles:root', kwargs={'profile_id': request.user.id}))
 
 
-def get_all_user_positions(profile):
+def get_all_user_position_applicants(profile):
     try:
         all_positions = ProjectApplicant.objects.select_related('position').filter(
-            Q(user=profile))
+            Q(user=profile)).annotate(status_display=F('status'))
     except ProjectApplicant.DoesNotExist:
         all_positions = None
 
@@ -51,7 +51,7 @@ def edit_profile(request):
     user = request.user
     SkillFormSet = modelformset_factory(Skill, fields=('name',), can_delete=True)
 
-    all_positions = get_all_user_positions(user)
+    all_positions = get_all_user_position_applicants(user)
 
     if all_positions:
         current_positions = all_positions.filter(Q(status='a')).values(
@@ -110,14 +110,12 @@ def view_profile(request, profile_id):
     """
 
     current_profile = CustomUser.objects.get(id=profile_id)
-    all_positions = get_all_user_positions(current_profile)
+    all_positions = get_all_user_position_applicants(current_profile)
 
     if all_positions:
         current_positions = all_positions.filter(Q(status='a')).values(
             'position__project__pk', 'position__project__name')
-        applications = all_positions.exclude(status='a').values(
-            'position__project__pk', 'position__project__name', 'position__name', 'status'
-        )
+        applications = all_positions.exclude(status='a')
     else:
         current_positions = None
         applications = None
@@ -151,7 +149,7 @@ def view_dashboard(request, profile_id):
 
     applications = ProjectApplicant.objects.filter(query).distinct()
 
-    projects = Project.objects.all().values('pk', 'name')
+    projects = Project.objects.filter(owner=user).values('pk', 'name')
     positions = ProjectPosition.objects.filter(project__pk__in=[project['pk'] for project in projects]).values('name')
 
     return render(request, 'user_profile/application_dashboard.html', {

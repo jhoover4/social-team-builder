@@ -35,8 +35,7 @@ class SignUpForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('position', 'about_me')
-        # fields = ('position', 'avatar', 'about_me')
+        fields = ('position', 'avatar', 'about_me')
 
         widgets = {
             'position': TextInput(attrs={'placeholder': 'Position', 'class': 'circle--input--h2'}),
