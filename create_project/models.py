@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.utils import timezone
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
@@ -35,7 +35,7 @@ class ProjectPosition(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = MarkdownxField(blank=True)
-    related_skills = models.ManyToManyField('user_profile.Skill')
+    related_skills = models.ManyToManyField('user_profile.Skill', blank=True)
     filled = models.BooleanField(default=False)
     time_involvement = models.IntegerField(default=60)  # eg: 10/hours a week. Done in minutes per week
 
@@ -79,8 +79,15 @@ class ProjectApplicant(models.Model):
         elif instance.status == 'r':
             notify.send(instance, recipient=instance.user, verb="Sorry, you've been rejected for the {} position.".format(instance.position.name))
 
+    @staticmethod
+    def pre_delete(sender, **kwargs):
+        instance = kwargs.get('instance')
+        notify.send(instance, recipient=instance.user,
+                    verb="Your application for the {} position was removed.".format(instance.position.name))
+
     def __str__(self):
         return self.user.email + ":" + self.position.name
 
 
 post_save.connect(ProjectApplicant.post_save, sender=ProjectApplicant)
+pre_delete.connect(ProjectApplicant.pre_delete, sender=ProjectApplicant)

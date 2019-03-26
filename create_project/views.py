@@ -21,14 +21,19 @@ class ProjectDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         user = self.request.user
-        try:
-            user_applied_projects = ProjectApplicant.objects.filter(position=OuterRef('pk'), user=user)
-            project_positions = ProjectPosition.objects.filter(project__id=self.object.id).annotate(
-                user_applied=Subquery(user_applied_projects.values('id'))).order_by('pk')
-        except ProjectApplicant.DoesNotExist:
-            project_positions = None
+
+        if user.is_authenticated:
+            try:
+                user_applied_projects = ProjectApplicant.objects.filter(position=OuterRef('pk'), user=user)
+                project_positions = ProjectPosition.objects.filter(project__id=self.object.id).annotate(
+                    user_applied=Subquery(user_applied_projects.values('id'))).order_by('pk')
+            except ProjectApplicant.DoesNotExist:
+                project_positions = None
+        else:
+            project_positions = ProjectPosition.objects.filter(project__id=self.object.id).order_by('pk')
 
         context['project_positions'] = project_positions
+        context['is_project_owner'] = self.object.owner == user
 
         project_time_involvement_hours = round(context['project'].time_involvement / 60, 1)
         if float(project_time_involvement_hours).is_integer():
@@ -61,9 +66,15 @@ class ProjectPositionInlineFormsetMixin:
             form.save(commit=False)
             form.instance.owner = self.request.user
             self.object = form.save()
+            self.object.save()
 
+            project_positions_form.instance = self.object
             if project_positions_form.is_valid():
                 project_positions_form.save()
+            else:
+                for position_form in project_positions_form:
+                    if position_form.is_valid():
+                        position_form.save()
 
         return HttpResponseRedirect(self.get_success_url())
 

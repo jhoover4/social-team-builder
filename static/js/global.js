@@ -159,8 +159,6 @@ $(document).ready(function () {
         };
 
         const createApplicantWidget = (widget) => {
-
-
             let applicationId = ajaxCall(widget.data(), widget.attr("href"))
                 .then(response => {
                         widget.text("You've Applied");

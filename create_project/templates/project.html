@@ -2,16 +2,18 @@
 
 {% block content %}
 
-    <div class="circle--actions--bar">
-        <div class="bounds">
-            <div class="grid-100">
-                <a class="button" href="{% url 'project:edit' pk=project.pk %}">Edit Project</a>
-                <form class="circle--form--delete" method="post" action="{% url 'project:delete' pk=project.pk %}">
-                    {% csrf_token %}<input class="button button-text" type="submit" value="Delete Project">
-                </form>
+    {% if is_project_owner %}
+        <div class="circle--actions--bar">
+            <div class="bounds">
+                <div class="grid-100">
+                    <a class="button" href="{% url 'project:edit' pk=project.pk %}">Edit Project</a>
+                    <form class="circle--form--delete" method="post" action="{% url 'project:delete' pk=project.pk %}">
+                        {% csrf_token %}<input class="button button-text" type="submit" value="Delete Project">
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     <div class="bounds circle--page circle--article">
         <div class="grid-70">
@@ -37,17 +39,23 @@
                             <div class="markdownx-preview">
                                 <p>{{ position.description_formatted_markdown|safe }}</p>
                             </div>
+                            {% if is_project_owner %}
+                                <a class="button button-primary"
+                                   href="{% url 'profiles:user_dashboard' profile_id=user.pk %}?project={{ project.name }}">View
+                                    Applications</a>
+                            {% elif user.is_authenticated %}
                                 {% if position.user_applied %}
-                                <a class="button button-primary button-inactive circle--ajax--applicant-delete"
-                                   href="{% url 'project:applicant_delete' pk=position.user_applied %}"
-                                   data-id="{{ position.user_applied }}">You've Applied</a>
-                            {% else %}
-                                {% if position.filled %}
-                                    <button class="button button-primary button-inactive">Position Filled</button>
+                                    <a class="button button-primary button-inactive circle--ajax--applicant-delete"
+                                       href="{% url 'project:applicant_delete' pk=position.user_applied %}"
+                                       data-id="{{ position.user_applied }}">You've Applied</a>
                                 {% else %}
-                                    <a class="button button-primary circle--ajax--applicant-create"
-                                       href="{% url 'project:applicant_create' %}"
-                                       data-user="{{ user.id }}" data-position="{{ position.id }}">Apply</a>
+                                    {% if position.filled %}
+                                        <button class="button button-primary button-inactive">Position Filled</button>
+                                    {% else %}
+                                        <a class="button button-primary circle--ajax--applicant-create"
+                                           href="{% url 'project:applicant_create' %}"
+                                           data-user="{{ user.id }}" data-position="{{ position.id }}">Apply</a>
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                         </li>
