@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('textarea').autogrow({onInitialize: true});
 
     const updateDjangoCounter = (num) => {
-        const $totalFormsInput = $("#id_projectposition_set-TOTAL_FORMS");
+        const $totalFormsInput = $circleCloneList.children("[id*='TOTAL_FORMS']");
         const newFormNum = parseInt($totalFormsInput.val()) + num;
 
         $totalFormsInput.val(+newFormNum);
@@ -37,6 +37,7 @@ $(document).ready(function () {
         parent.hide();
 
         $(this).children("input").prop("checked", true);
+        // updateDjangoCounter(-1);
     });
 
     // Adds class to selected item

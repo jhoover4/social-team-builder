@@ -80,8 +80,8 @@
 
                 <div class="circle--secondary--module">
                     <h4>My Skills</h4>
-                    {{ skill_formset.management_form }}
                     <ul class="circle--clone--list">
+                        {{ skill_formset.management_form }}
                         {% for skill_form in skill_formset %}
                             {{ skill_form.errors }}
                             <li>
